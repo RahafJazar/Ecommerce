@@ -1,0 +1,264 @@
+<!-- ============ Announcement strip ============ -->
+<div class="bg-emerald-950 text-emerald-50">
+    <div class="mx-auto flex max-w-7xl items-center justify-center gap-2 px-4 py-2 text-xs sm:text-sm">
+        <i class="fas fa-truck-fast text-emerald-400"></i>
+        <p>Free delivery on orders over $50</p>
+    </div>
+</div>
+
+<!-- ============ Main navbar ============ -->
+<header
+    class="sticky top-0 z-40 w-full border-b border-gray-200/70 bg-white/85 backdrop-blur-md supports-[backdrop-filter]:bg-white/70">
+    <nav class="mx-auto flex max-w-8xl items-center gap-4 px-4 py-3 sm:px-6 lg:gap-8" aria-label="Main">
+        <!-- Logo -->
+        <a routerLink="/"
+            class="flex shrink-0 items-center gap-2 rounded-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500 focus-visible:ring-offset-2"
+            aria-label="AldoraCart home">
+            <span
+                class="flex h-9 w-9 items-center justify-center rounded-xl bg-gradient-to-br from-emerald-500 to-emerald-700 text-white shadow-sm shadow-emerald-600/30">
+                <i class="fas fa-bag-shopping"></i>
+            </span>
+            <span class="text-xl font-extrabold tracking-tight text-gray-900">
+                Aldora<span class="text-emerald-600">Cart</span>
+            </span>
+        </a>
+
+        <!-- Desktop links -->
+        <ul class="hidden items-center gap-1 md:flex">
+            <li>
+                <a routerLink="/" routerLinkActive="text-emerald-700 bg-emerald-50"
+                    [routerLinkActiveOptions]="{ exact: true }"
+                    class="rounded-full px-4 py-2 text-sm font-semibold text-gray-700 transition-colors hover:bg-gray-100 hover:text-emerald-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500">Home</a>
+            </li>
+
+            <!-- Categories dropdown (opens on hover and on keyboard focus) -->
+            <li class="group relative">
+                <button type="button" aria-haspopup="true"
+                    class="flex items-center gap-1.5 rounded-full px-4 py-2 text-sm font-semibold text-gray-700 transition-colors hover:bg-gray-100 hover:text-emerald-700 group-focus-within:bg-gray-100 group-focus-within:text-emerald-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500">
+                    Categories
+                    <i
+                        class="fas fa-chevron-down text-[10px] transition-transform duration-200 group-hover:rotate-180 group-focus-within:rotate-180"></i>
+                </button>
+
+                <div
+                    class="invisible absolute left-0 top-full z-50 w-[22rem] translate-y-1 pt-2 opacity-0 transition duration-200 group-hover:visible group-hover:translate-y-0 group-hover:opacity-100 group-focus-within:visible group-focus-within:translate-y-0 group-focus-within:opacity-100">
+                    <div
+                        class="overflow-hidden rounded-2xl border border-gray-100 bg-white shadow-xl shadow-gray-900/10">
+                        <ul class="grid grid-cols-2 gap-1 p-3">
+                            <li>
+                                <a routerLink="/categories"
+                                    class="flex items-center gap-3 rounded-xl p-2.5 text-sm font-medium text-gray-700 transition-colors hover:bg-emerald-50 hover:text-emerald-700">
+                                    <span
+                                        class="flex h-9 w-9 items-center justify-center rounded-lg bg-emerald-100 text-emerald-700">
+                                        <i class="fas fa-laptop"></i>
+                                    </span>
+                                    Electronics
+                                </a>
+                            </li>
+                            <li>
+                                <a routerLink="/categories"
+                                    class="flex items-center gap-3 rounded-xl p-2.5 text-sm font-medium text-gray-700 transition-colors hover:bg-emerald-50 hover:text-emerald-700">
+                                    <span
+                                        class="flex h-9 w-9 items-center justify-center rounded-lg bg-amber-100 text-amber-700">
+                                        <i class="fas fa-shirt"></i>
+                                    </span>
+                                    Fashion
+                                </a>
+                            </li>
+                            <li>
+                                <a routerLink="/categories"
+                                    class="flex items-center gap-3 rounded-xl p-2.5 text-sm font-medium text-gray-700 transition-colors hover:bg-emerald-50 hover:text-emerald-700">
+                                    <span
+                                        class="flex h-9 w-9 items-center justify-center rounded-lg bg-sky-100 text-sky-700">
+                                        <i class="fas fa-couch"></i>
+                                    </span>
+                                    Home
+                                </a>
+                            </li>
+                            <li>
+                                <a routerLink="/categories"
+                                    class="flex items-center gap-3 rounded-xl p-2.5 text-sm font-medium text-gray-700 transition-colors hover:bg-emerald-50 hover:text-emerald-700">
+                                    <span
+                                        class="flex h-9 w-9 items-center justify-center rounded-lg bg-rose-100 text-rose-700">
+                                        <i class="fas fa-spa"></i>
+                                    </span>
+                                    Beauty
+                                </a>
+                            </li>
+                        </ul>
+                        <a routerLink="/categories"
+                            class="flex items-center justify-between border-t border-gray-100 bg-gray-50 px-5 py-3 text-sm font-semibold text-emerald-700 transition-colors hover:bg-emerald-50">
+                            Browse all categories
+                            <i class="fas fa-arrow-right text-xs"></i>
+                        </a>
+                    </div>
+                </div>
+            </li>
+
+            <li>
+                <a routerLink="/brands" routerLinkActive="text-emerald-700 bg-emerald-50"
+                    class="rounded-full px-4 py-2 text-sm font-semibold text-gray-700 transition-colors hover:bg-gray-100 hover:text-emerald-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500">Brands</a>
+            </li>
+        </ul>
+
+        <!-- Search (desktop) -->
+        <form class="relative ml-auto hidden max-w-md grow lg:block" role="search" (submit)="$event.preventDefault()">
+            <label for="desktop-search" class="sr-only">Search products</label>
+            <i
+                class="fas fa-search pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-sm text-gray-400"></i>
+            <input id="desktop-search" type="search" placeholder="Search for products"
+                class="w-full rounded-full border border-gray-200 bg-gray-100/70 py-2.5 pl-11 pr-24 text-sm text-gray-800 placeholder-gray-400 outline-none transition-all focus:border-emerald-500 focus:bg-white focus:ring-4 focus:ring-emerald-500/15" />
+            <button type="submit"
+                class="absolute bottom-1 right-1 top-1 rounded-full bg-emerald-600 px-4 text-sm font-semibold text-white transition-colors hover:bg-emerald-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500 focus-visible:ring-offset-2">
+                Search
+            </button>
+        </form>
+
+        <!-- Actions -->
+        <div class="ml-auto flex items-center gap-1 sm:gap-2 lg:ml-0">
+            <!-- Search toggle (mobile/tablet) – opens the drawer where the search lives -->
+            <button type="button" data-drawer-target="drawer-right" data-drawer-show="drawer-right"
+                data-drawer-placement="right" aria-label="Search products"
+                class="flex h-10 w-10 items-center justify-center rounded-full text-gray-600 transition-colors hover:bg-gray-100 hover:text-emerald-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500 lg:hidden">
+                <i class="fas fa-search text-lg"></i>
+            </button>
+
+            <!-- Wishlist -->
+            <a routerLink="/wishlist" aria-label="Wishlist"
+                class="group relative flex h-10 w-10 items-center justify-center rounded-full text-gray-600 transition-colors hover:bg-rose-50 hover:text-rose-600 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500">
+                <i class="far fa-heart text-xl transition-transform group-hover:scale-110"></i>
+            </a>
+
+            <!-- Cart -->
+            <a routerLink="/cart" aria-label="Cart, 3 items"
+                class="group relative flex h-10 w-10 items-center justify-center rounded-full text-gray-600 transition-colors hover:bg-emerald-50 hover:text-emerald-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500">
+                <i class="fas fa-shopping-cart text-xl transition-transform group-hover:scale-110"></i>
+                <!-- TODO: bind to your cart count, e.g. {{ cartCount() }} -->
+                <span
+                    class="absolute -right-0.5 -top-0.5 flex h-5 min-w-5 items-center justify-center rounded-full border-2 border-white bg-emerald-600 px-1 text-[10px] font-bold leading-none text-white">3</span>
+            </a>
+
+            <!-- Auth (desktop) -->
+            <div class="ml-1 hidden items-center gap-2 border-l border-gray-200 pl-3 sm:flex">
+                <a routerLink="/login"
+                    class="rounded-full px-4 py-2 text-sm font-semibold text-gray-700 transition-colors hover:bg-gray-100 hover:text-emerald-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500">Sign
+                    in</a>
+                <a routerLink="/regester"
+                    class="rounded-full bg-emerald-600 px-5 py-2 text-sm font-semibold text-white shadow-sm shadow-emerald-600/30 transition-all hover:bg-emerald-700 hover:shadow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500 focus-visible:ring-offset-2">Sign
+                    up</a>
+            </div>
+
+            <!--
+        Logged-in state (replace the auth block above with this using @if):
+
+        <div class="group relative ml-1 border-l border-gray-200 pl-3">
+          <button class="flex items-center gap-2 rounded-full p-1 pr-3 hover:bg-gray-100">
+            <span class="flex h-8 w-8 items-center justify-center rounded-full bg-emerald-600 text-sm font-bold text-white">A</span>
+            <span class="hidden text-sm font-semibold text-gray-700 md:block">Account</span>
+            <i class="fas fa-chevron-down text-[10px] text-gray-500"></i>
+          </button>
+          ...dropdown with Orders / Profile / Sign out...
+        </div>
+      -->
+
+            <!-- Menu button (mobile) -->
+            <button type="button" data-drawer-target="drawer-right" data-drawer-show="drawer-right"
+                data-drawer-placement="right" aria-label="Open menu"
+                class="flex h-10 w-10 items-center justify-center rounded-full text-gray-700 transition-colors hover:bg-gray-100 hover:text-emerald-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500 md:hidden">
+                <i class="fas fa-bars text-2xl"></i>
+            </button>
+        </div>
+    </nav>
+</header>
+
+<!-- ============ Mobile drawer ============ -->
+<div id="drawer-right"
+    class="fixed right-0 top-0 z-50 flex h-screen w-80 max-w-[85vw] translate-x-full flex-col bg-white shadow-2xl transition-transform"
+    tabindex="-1" aria-labelledby="drawer-title">
+    <!-- Header -->
+    <div class="flex items-center justify-between border-b border-gray-100 px-5 py-4">
+        <a routerLink="/" data-drawer-hide="drawer-right" class="flex items-center gap-2" id="drawer-title">
+            <span
+                class="flex h-8 w-8 items-center justify-center rounded-lg bg-gradient-to-br from-emerald-500 to-emerald-700 text-sm text-white">
+                <i class="fas fa-bag-shopping"></i>
+            </span>
+            <span class="text-lg font-extrabold tracking-tight text-gray-900">
+                Aldora<span class="text-emerald-600">Cart</span>
+            </span>
+        </a>
+        <button type="button" data-drawer-hide="drawer-right" aria-label="Close menu"
+            class="flex h-9 w-9 items-center justify-center rounded-full bg-gray-100 text-gray-500 transition-colors hover:bg-gray-200 hover:text-gray-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500">
+            <i class="fas fa-times"></i>
+        </button>
+    </div>
+
+    <!-- Scrollable body -->
+    <div class="flex-1 overflow-y-auto px-5 py-5">
+        <!-- Search -->
+        <form class="relative mb-6" role="search" (submit)="$event.preventDefault()">
+            <label for="mobile-search" class="sr-only">Search products</label>
+            <i
+                class="fas fa-search pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-sm text-gray-400"></i>
+            <input id="mobile-search" type="search" placeholder="Search for products"
+                class="w-full rounded-xl border border-gray-200 bg-gray-100/70 py-3 pl-11 pr-4 text-sm outline-none transition-all focus:border-emerald-500 focus:bg-white focus:ring-4 focus:ring-emerald-500/15" />
+        </form>
+
+        <!-- Main links -->
+        <nav aria-label="Mobile">
+            <ul class="space-y-1">
+                <li>
+                    <a routerLink="/" data-drawer-hide="drawer-right" routerLinkActive="bg-emerald-50 text-emerald-700"
+                        [routerLinkActiveOptions]="{ exact: true }"
+                        class="flex items-center gap-3 rounded-xl px-3 py-3 font-semibold text-gray-700 transition-colors hover:bg-gray-50">
+                        <i class="fas fa-house w-5 text-center"></i> Home
+                    </a>
+                </li>
+                <li>
+                    <a routerLink="/categories" data-drawer-hide="drawer-right"
+                        routerLinkActive="bg-emerald-50 text-emerald-700"
+                        class="flex items-center gap-3 rounded-xl px-3 py-3 font-semibold text-gray-700 transition-colors hover:bg-gray-50">
+                        <i class="fas fa-table-cells-large w-5 text-center"></i> Categories
+                    </a>
+                </li>
+                <li>
+                    <a routerLink="/brands" data-drawer-hide="drawer-right"
+                        routerLinkActive="bg-emerald-50 text-emerald-700"
+                        class="flex items-center gap-3 rounded-xl px-3 py-3 font-semibold text-gray-700 transition-colors hover:bg-gray-50">
+                        <i class="fas fa-tags w-5 text-center"></i> Brands
+                    </a>
+                </li>
+            </ul>
+        </nav>
+
+        <!-- Shortcuts -->
+        <div class="mt-5 grid grid-cols-2 gap-3 border-t border-gray-100 pt-5">
+            <a routerLink="/wishlist" data-drawer-hide="drawer-right"
+                class="flex flex-col items-center gap-2 rounded-2xl border border-gray-100 bg-rose-50/60 p-4 text-sm font-semibold text-gray-700 transition-colors hover:bg-rose-50">
+                <span class="flex h-11 w-11 items-center justify-center rounded-full bg-white text-rose-500 shadow-sm">
+                    <i class="far fa-heart text-lg"></i>
+                </span>
+                Wishlist
+            </a>
+            <a routerLink="/cart" data-drawer-hide="drawer-right"
+                class="relative flex flex-col items-center gap-2 rounded-2xl border border-gray-100 bg-emerald-50/60 p-4 text-sm font-semibold text-gray-700 transition-colors hover:bg-emerald-50">
+                <span
+                    class="flex h-11 w-11 items-center justify-center rounded-full bg-white text-emerald-600 shadow-sm">
+                    <i class="fas fa-shopping-cart text-lg"></i>
+                </span>
+                My cart
+                <span
+                    class="absolute right-3 top-3 flex h-5 min-w-5 items-center justify-center rounded-full bg-emerald-600 px-1 text-[10px] font-bold text-white">3</span>
+            </a>
+        </div>
+    </div>
+
+    <!-- Pinned auth actions -->
+    <div class="grid grid-cols-2 gap-3 border-t border-gray-100 bg-white px-5 py-4">
+        <a routerLink="/login" data-drawer-hide="drawer-right"
+            class="rounded-xl border border-gray-200 py-3 text-center text-sm font-semibold text-gray-700 transition-colors hover:border-emerald-500 hover:text-emerald-700">Sign
+            in</a>
+        <a routerLink="/regester" data-drawer-hide="drawer-right"
+            class="rounded-xl bg-emerald-600 py-3 text-center text-sm font-semibold text-white shadow-sm shadow-emerald-600/30 transition-colors hover:bg-emerald-700">Sign
+            up</a>
+    </div>
+</div>

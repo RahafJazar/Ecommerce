@@ -1,0 +1,135 @@
+<footer class="bg-emerald-950 font-sans text-emerald-100/70">
+    <div class="mx-auto max-w-8xl px-4 sm:px-6">
+        <!-- Newsletter -->
+        <div
+            class="mt-12 rounded-3xl bg-gradient-to-br from-emerald-500 to-emerald-700 p-6 shadow-xl shadow-emerald-950/30 sm:p-8">
+            <div class="flex flex-col items-start gap-5 md:flex-row md:items-center md:justify-between">
+                <div class="max-w-md">
+                    <h3 class="text-xl font-bold text-white sm:text-2xl">Get 10% off your first order</h3>
+                    <p class="mt-1 text-sm text-emerald-50">Join our newsletter for new arrivals and member-only deals.
+                    </p>
+                </div>
+                <form class="flex w-full max-w-md gap-2" (submit)="$event.preventDefault()">
+                    <label for="newsletter-email" class="sr-only">Email address</label>
+                    <input id="newsletter-email" type="email" placeholder="Enter your email"
+                        class="min-w-0 flex-1 rounded-full border-0 bg-white px-5 py-3 text-sm text-gray-800 placeholder-gray-400 outline-none focus:ring-4 focus:ring-white/40" />
+                    <button type="submit"
+                        class="shrink-0 rounded-full bg-emerald-950 px-6 py-3 text-sm font-semibold text-white transition-colors hover:bg-black focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-emerald-700">
+                        Subscribe
+                    </button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Main columns -->
+        <div
+            class="grid grid-cols-2 gap-x-6 gap-y-10 py-12 md:grid-cols-3 lg:grid-cols-[minmax(0,2fr)_repeat(4,1fr)] lg:gap-10">
+            <!-- Brand -->
+            <div class="col-span-2 md:col-span-3 lg:col-span-1">
+                <a routerLink="/" class="inline-flex items-center gap-2" aria-label="AldoraCart home">
+                    <span
+                        class="flex h-9 w-9 items-center justify-center rounded-xl bg-gradient-to-br from-emerald-500 to-emerald-700 text-white">
+                        <i class="fas fa-bag-shopping"></i>
+                    </span>
+                    <span class="text-xl font-extrabold tracking-tight text-white">
+                        Aldora<span class="text-emerald-400">Cart</span>
+                    </span>
+                </a>
+                <p class="mt-4 max-w-sm text-sm leading-relaxed">
+                    Quality products from fashion to electronics, at fair prices and with fast, easy checkout.
+                </p>
+
+                <ul class="mt-6 space-y-3 text-sm">
+                    <li>
+                        <a href="tel:+18001234567" class="flex items-center gap-3 transition-colors hover:text-white">
+                            <i class="fas fa-phone w-4 text-emerald-400"></i> +1 (800) 123-4567
+                        </a>
+                    </li>
+                    <li>
+                        <a href="mailto:support@aldoracart.com"
+                            class="flex items-center gap-3 transition-colors hover:text-white">
+                            <i class="fas fa-envelope w-4 text-emerald-400"></i> support@aldoracart.com
+                        </a>
+                    </li>
+                    <li class="flex items-start gap-3">
+                        <i class="fas fa-map-marker-alt mt-1 w-4 text-emerald-400"></i>
+                        <span>123 Commerce Street, New York, NY 10001</span>
+                    </li>
+                </ul>
+
+                <div class="mt-6 flex gap-2">
+                    <a href="#" aria-label="Facebook"
+                        class="flex h-10 w-10 items-center justify-center rounded-full bg-white/5 text-emerald-100 transition-colors hover:bg-emerald-500 hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400"><i
+                            class="fab fa-facebook-f"></i></a>
+                    <a href="#" aria-label="X (Twitter)"
+                        class="flex h-10 w-10 items-center justify-center rounded-full bg-white/5 text-emerald-100 transition-colors hover:bg-emerald-500 hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400"><i
+                            class="fab fa-twitter"></i></a>
+                    <a href="#" aria-label="Instagram"
+                        class="flex h-10 w-10 items-center justify-center rounded-full bg-white/5 text-emerald-100 transition-colors hover:bg-emerald-500 hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400"><i
+                            class="fab fa-instagram"></i></a>
+                    <a href="#" aria-label="YouTube"
+                        class="flex h-10 w-10 items-center justify-center rounded-full bg-white/5 text-emerald-100 transition-colors hover:bg-emerald-500 hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400"><i
+                            class="fab fa-youtube"></i></a>
+                </div>
+            </div>
+
+            <!-- Shop -->
+            <nav aria-label="Shop">
+                <h4 class="mb-5 font-bold text-white">Shop</h4>
+                <ul class="space-y-3 text-sm">
+                    <li><a routerLink="/categories" class="transition-colors hover:text-white">All products</a></li>
+                    <li><a routerLink="/categories" class="transition-colors hover:text-white">Categories</a></li>
+                    <li><a routerLink="/brands" class="transition-colors hover:text-white">Brands</a></li>
+                    <li><a routerLink="/categories" class="transition-colors hover:text-white">Electronics</a></li>
+                    <li><a routerLink="/categories" class="transition-colors hover:text-white">Men's fashion</a></li>
+                    <li><a routerLink="/categories" class="transition-colors hover:text-white">Women's fashion</a></li>
+                </ul>
+            </nav>
+
+            <!-- Account -->
+            <nav aria-label="Account">
+                <h4 class="mb-5 font-bold text-white">Account</h4>
+                <ul class="space-y-3 text-sm">
+                    <li><a href="#" class="transition-colors hover:text-white">My account</a></li>
+                    <li><a href="#" class="transition-colors hover:text-white">Order history</a></li>
+                    <li><a routerLink="/wishlist" class="transition-colors hover:text-white">Wishlist</a></li>
+                    <li><a routerLink="/cart" class="transition-colors hover:text-white">Shopping cart</a></li>
+                    <li><a routerLink="/login" class="transition-colors hover:text-white">Sign in</a></li>
+                    <li><a routerLink="/regester" class="transition-colors hover:text-white">Create account</a></li>
+                </ul>
+            </nav>
+
+            <!-- Support -->
+            <nav aria-label="Support">
+                <h4 class="mb-5 font-bold text-white">Support</h4>
+                <ul class="space-y-3 text-sm">
+                    <li><a href="#" class="transition-colors hover:text-white">Contact us</a></li>
+                    <li><a href="#" class="transition-colors hover:text-white">Help center</a></li>
+                    <li><a href="#" class="transition-colors hover:text-white">Shipping info</a></li>
+                    <li><a href="#" class="transition-colors hover:text-white">Returns & refunds</a></li>
+                    <li><a href="#" class="transition-colors hover:text-white">Track order</a></li>
+                </ul>
+            </nav>
+
+            <!-- Legal -->
+            <nav aria-label="Legal">
+                <h4 class="mb-5 font-bold text-white">Legal</h4>
+                <ul class="space-y-3 text-sm">
+                    <li><a href="#" class="transition-colors hover:text-white">Privacy policy</a></li>
+                    <li><a href="#" class="transition-colors hover:text-white">Terms of service</a></li>
+                    <li><a href="#" class="transition-colors hover:text-white">Cookie policy</a></li>
+                </ul>
+            </nav>
+        </div>
+
+        <!-- Bottom bar -->
+        <div class="flex flex-col items-center justify-between gap-4 border-t border-white/10 py-6 md:flex-row">
+            <p class="text-sm">© 2026 AldoraCart. All rights reserved.</p>
+            <div class="flex items-center gap-4 text-3xl text-emerald-100/60">
+                <i class="fab fa-cc-visa" title="Visa" aria-label="Visa"></i>
+                <i class="fab fa-cc-mastercard" title="Mastercard" aria-label="Mastercard"></i>
+                <i class="fab fa-cc-paypal" title="PayPal" aria-label="PayPal"></i>
+            </div>
+        </div>
+    </div>
+</footer>
