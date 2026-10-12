@@ -21,7 +21,7 @@ export const routes: Routes = [
             import('./features/brands/brands.component').then(c => c.BrandsComponent)
     },
     {
-        path: 'details',
+        path: 'details/:slug/:id',
         title: 'AldoraCart | Details',
         loadComponent: () =>
             import('./features/details/details.component').then(c => c.DetailsComponent)
