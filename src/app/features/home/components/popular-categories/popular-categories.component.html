@@ -1,72 +1,141 @@
 <section class="py-10">
     <div class="container 2xl:max-w-8xl">
-        <div class="flex items-center gap-3 my-8">
-            <div class="h-8 w-1.5 bg-linear-to-b from-emerald-500 to-emerald-700 rounded-full"></div>
-            <h2 class="text-3xl font-bold text-gray-800">Shop By <span class="text-emerald-600">Categories</span></h2>
-        </div>
-        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 mt-4 gap-4">
-            @for (category of categoriesList(); track category._id) {
-            <a [routerLink]="['/products']" [queryParams]="{ category: category._id }"
-                class="group block overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm transition duration-300 hover:-translate-y-1 hover:border-emerald-200 hover:shadow-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500 focus-visible:ring-offset-4 motion-reduce:transform-none motion-reduce:transition-none">
-                <!-- Image -->
-                <div class="relative aspect-[4/3] overflow-hidden bg-slate-100">
-                    <img [src]="category.image" [alt]="category.name" loading="lazy" decoding="async"
-                        class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105 motion-reduce:transform-none motion-reduce:transition-none" />
-
-                    <div aria-hidden="true" class="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent">
-                    </div>
-
-                    <span
-                        class="absolute left-4 top-4 rounded-full bg-white/95 px-3 py-1 text-[11px] font-semibold uppercase tracking-wider text-slate-700 shadow-sm">
-                        Collection
-                    </span>
-                </div>
-
-                <!-- Details -->
-                <div class="flex items-center justify-between gap-3 p-5">
-                    <div class="min-w-0">
-                        <h2 class="truncate text-lg font-semibold text-slate-900 transition-colors group-hover:text-emerald-700"
-                            [title]="category.name">
-                            {{ category.name }}
-                        </h2>
-
-                        <p class="mt-1 text-sm text-slate-500">
-                            Explore collection
-                        </p>
-                    </div>
-
-                    <span aria-hidden="true"
-                        class="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-emerald-50 text-emerald-600 transition-colors group-hover:bg-emerald-600 group-hover:text-white">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"
-                            stroke="currentColor" stroke-width="1.8">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14m-6-6 6 6-6 6" />
-                        </svg>
-                    </span>
-                </div>
-            </a>
-            } @empty {
-            <div
-                class="col-span-full rounded-2xl border border-dashed border-slate-300 bg-white px-6 py-16 text-center">
-                <div aria-hidden="true"
-                    class="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-2xl bg-emerald-50 text-emerald-600">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7" fill="none" viewBox="0 0 24 24"
-                        stroke="currentColor" stroke-width="1.5">
-                        <rect x="3" y="3" width="7" height="7" rx="1.5" />
-                        <rect x="14" y="3" width="7" height="7" rx="1.5" />
-                        <rect x="3" y="14" width="7" height="7" rx="1.5" />
-                        <rect x="14" y="14" width="7" height="7" rx="1.5" />
-                    </svg>
-                </div>
-
-                <h2 class="text-lg font-semibold text-slate-900">
-                    No categories yet
+        <div>
+            <div class="flex items-center gap-3 my-8">
+                <div class="h-8 w-1.5 bg-linear-to-b from-emerald-500 to-emerald-700 rounded-full"></div>
+                <h2 class="text-3xl font-bold text-gray-800">Shop By <span class="text-emerald-600">Categories</span>
                 </h2>
-
-                <p class="mt-2 text-sm text-slate-500">
-                    Our collections will appear here soon.
-                </p>
             </div>
-            }
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 mt-4 gap-4">
+                @for (category of categoriesList(); track category._id) {
+                <a [routerLink]="['/products']" [queryParams]="{ category: category._id }"
+                    class="group block overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm transition duration-300 hover:-translate-y-1 hover:border-emerald-200 hover:shadow-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500 focus-visible:ring-offset-4 motion-reduce:transform-none motion-reduce:transition-none">
+                    <!-- Image -->
+                    <div class="relative aspect-[4/3] overflow-hidden bg-slate-100">
+                        <img [src]="category.image" [alt]="category.name" loading="lazy" decoding="async"
+                            class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105 motion-reduce:transform-none motion-reduce:transition-none" />
+
+                        <div aria-hidden="true" class="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent">
+                        </div>
+
+                        <span
+                            class="absolute left-4 top-4 rounded-full bg-white/95 px-3 py-1 text-[11px] font-semibold uppercase tracking-wider text-slate-700 shadow-sm">
+                            Collection
+                        </span>
+                    </div>
+
+                    <!-- Details -->
+                    <div class="flex items-center justify-between gap-3 p-5">
+                        <div class="min-w-0">
+                            <h2 class="truncate text-lg font-semibold text-slate-900 transition-colors group-hover:text-emerald-700"
+                                [title]="category.name">
+                                {{ category.name }}
+                            </h2>
+
+                            <p class="mt-1 text-sm text-slate-500">
+                                Explore collection
+                            </p>
+                        </div>
+
+                        <span aria-hidden="true"
+                            class="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-emerald-50 text-emerald-600 transition-colors group-hover:bg-emerald-600 group-hover:text-white">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"
+                                stroke="currentColor" stroke-width="1.8">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14m-6-6 6 6-6 6" />
+                            </svg>
+                        </span>
+                    </div>
+                </a>
+                } @empty {
+                <div
+                    class="col-span-full rounded-2xl border border-dashed border-slate-300 bg-white px-6 py-16 text-center">
+                    <div aria-hidden="true"
+                        class="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-2xl bg-emerald-50 text-emerald-600">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7" fill="none" viewBox="0 0 24 24"
+                            stroke="currentColor" stroke-width="1.5">
+                            <rect x="3" y="3" width="7" height="7" rx="1.5" />
+                            <rect x="14" y="3" width="7" height="7" rx="1.5" />
+                            <rect x="3" y="14" width="7" height="7" rx="1.5" />
+                            <rect x="14" y="14" width="7" height="7" rx="1.5" />
+                        </svg>
+                    </div>
+
+                    <h2 class="text-lg font-semibold text-slate-900">
+                        No categories yet
+                    </h2>
+
+                    <p class="mt-2 text-sm text-slate-500">
+                        Our collections will appear here soon.
+                    </p>
+                </div>
+                }
+            </div>
+        </div>
+        <div class="grid md:grid-cols-2 gap-4 pt-8 font-sans ">
+            <div
+                class="relative overflow-hidden rounded-2xl bg-linear-to-br from-[#12a664] to-[#088a50] p-8 text-white shadow-lg">
+                <div class="absolute -right-12 -top-12 h-40 w-40 rounded-full bg-white/10 blur-[2px]"></div>
+                <div class="absolute -bottom-12 -left-12 h-40 w-40 rounded-full bg-black/5 blur-[2px]"></div>
+
+                <div class="relative z-10 flex flex-col h-full">
+                    <div
+                        class="inline-flex w-fit items-center gap-1.5 rounded-full bg-white/20 px-3 py-1 text-sm font-medium mb-4 backdrop-blur-sm">
+                        <i class="fa-solid fa-fire text-orange-400"></i> Deal of the Day
+                    </div>
+
+                    <h2 class="text-3xl font-bold mb-2 tracking-tight">Fresh Organic Fruits</h2>
+                    <p class="text-white/90 text-sm mb-6">Get up to 40% off on selected organic fruits</p>
+
+                    <div class="flex items-center gap-3 mb-8">
+                        <span class="text-3xl font-extrabold tracking-tight">40% OFF</span>
+                        <span class="text-sm text-white/90 mt-1">
+                            Use code: <span class="font-bold text-white tracking-wide">ORGANIC40</span>
+                        </span>
+                    </div>
+
+                    <div class="mt-auto">
+                        <a href="#"
+                            class="inline-flex items-center gap-2 rounded-full bg-white px-5 py-2.5 text-sm font-bold text-[#088a50] transition hover:bg-gray-100 shadow-sm">
+                            Shop Now
+                            <i class="fa-solid fa-arrow-right"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div
+                class="relative overflow-hidden rounded-2xl bg-linear-to-br from-[#ff8736] via-[#fe5c4e] to-[#ff2b6b] p-8 text-white shadow-lg">
+                <div class="absolute -right-12 -top-12 h-40 w-40 rounded-full bg-white/10 blur-[2px]"></div>
+                <div class="absolute -bottom-12 -left-12 h-40 w-40 rounded-full bg-black/5 blur-[2px]"></div>
+
+                <div class="relative z-10 flex flex-col h-full">
+                    <div
+                        class="inline-flex w-fit items-center gap-1.5 rounded-full bg-white/20 px-3 py-1 text-sm font-medium mb-4 backdrop-blur-sm">
+                        <i class="fa-solid fa-hand-sparkles text-yellow-300"></i> New Arrivals
+                    </div>
+
+                    <h2 class="text-3xl font-bold mb-2 tracking-tight">Exotic Vegetables</h2>
+                    <p class="text-white/90 text-sm mb-6">
+                        Discover our latest collection of premium vegetables
+                    </p>
+
+                    <div class="flex items-center gap-3 mb-8">
+                        <span class="text-3xl font-extrabold tracking-tight">25% OFF</span>
+                        <span class="text-sm text-white/90 mt-1">
+                            Use code: <span class="font-bold text-white tracking-wide">FRESH25</span>
+                        </span>
+                    </div>
+
+                    <div class="mt-auto">
+                        <a href="#"
+                            class="inline-flex items-center gap-2 rounded-full bg-white px-5 py-2.5 text-sm font-bold text-[#f25c4e] transition hover:bg-gray-100 shadow-sm">
+                            Explore Now
+                            <i class="fa-solid fa-arrow-right"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
+
 </section>

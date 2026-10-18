@@ -51,7 +51,7 @@ export const routes: Routes = [
             import('./features/login/login.component').then(c => c.LoginComponent)
     },
     {
-        path: 'regester',
+        path: 'register',
         title: 'AldoraCart | Register',
         loadComponent: () =>
             import('./features/register/register.component').then(c => c.RegisterComponent)

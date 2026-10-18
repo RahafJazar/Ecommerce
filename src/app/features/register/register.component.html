@@ -1,1 +1,252 @@
-<p>register works!</p>
+<section class="w-full min-w-0 bg-[#f8f7f5] px-0 py-0 sm:px-5 sm:py-6 lg:px-8 lg:py-8">
+
+    <div class="mx-auto grid w-full min-w-0 max-w-[1400px]
+           grid-cols-1 overflow-hidden bg-white
+           sm:rounded-3xl sm:shadow-xl sm:shadow-stone-200/40
+           lg:grid-cols-2 lg:items-stretch">
+
+        <!-- LEFT: FASHION IMAGE -->
+        <swiper-container class="block h-[280px] w-full sm:h-[380px] lg:h-full" [pagination]="{clickable:true,    dynamicBullets: true
+}" autoplay="true" delay="1000" pauseOnMouseEnter="true">
+            <swiper-slide class="block h-full">
+                <div class="relative h-full w-full overflow-hidden bg-[#d8d4c8]">
+
+                    <img src="/assets/imgs/register-slider-img1.png" alt="Fashion collection"
+                        class="absolute inset-0 h-full w-full object-cover transition-transform duration-[1500ms] hover:scale-105" />
+
+                    <!-- Overlay -->
+                    <div class="absolute inset-0 bg-gradient-to-t from-[#092f25]/90 via-[#092f25]/20 to-black/10"></div>
+
+                    <!-- Brand -->
+                    <div
+                        class="absolute left-7 top-8 text-lg font-bold tracking-[0.3em] text-white lg:left-12 lg:top-12">
+                        ALDORACART
+                    </div>
+
+                    <!-- Editorial Content -->
+                    <div class="absolute bottom-8 left-7 right-7 text-white lg:bottom-14 lg:left-12">
+
+                        <div class="mb-4 flex items-center gap-3">
+                            <span class="h-px w-8 bg-white"></span>
+
+                            <span class="text-[10px] font-semibold uppercase tracking-[0.3em]">
+                                New Collection
+                            </span>
+                        </div>
+
+                        <h2 class="font-serif text-4xl leading-[1.1] sm:text-5xl lg:text-[64px]">
+                            Your Style.<br />
+                            Your Story.
+                        </h2>
+
+                        <p class="mt-5 max-w-[330px] text-sm leading-7 text-white/90">
+                            Discover timeless fashion, beautiful accessories,
+                            and styles made just for you.
+                        </p>
+
+
+
+                    </div>
+                </div>
+            </swiper-slide>
+            <swiper-slide class="block h-full">
+                <div class="relative h-full w-full overflow-hidden bg-[#d8d4c8]">
+
+                    <img src="/assets/imgs/register-slider-img2.png" alt="Fashion collection"
+                        class="absolute inset-0 h-full w-full object-cover transition-transform duration-[1500ms] hover:scale-105" />
+
+                    <!-- Overlay -->
+                    <div class="absolute inset-0 bg-gradient-to-t from-[#092f25]/90 via-[#092f25]/20 to-black/10"></div>
+
+                    <!-- Brand -->
+                    <div
+                        class="absolute left-7 top-8 text-lg font-bold tracking-[0.3em] text-white lg:left-12 lg:top-12">
+                        ALDORACART
+                    </div>
+
+                    <!-- Editorial Content -->
+                    <div class="absolute bottom-8 left-7 right-7 text-white lg:bottom-14 lg:left-12">
+
+                        <div class="mb-4 flex items-center gap-3">
+                            <span class="h-px w-8 bg-white"></span>
+
+                            <span class="text-[10px] font-semibold uppercase tracking-[0.3em]">
+                                New Collection
+                            </span>
+                        </div>
+
+                        <h2 class="font-serif text-4xl leading-[1.1] sm:text-5xl lg:text-[64px]">
+                            Your Style.<br />
+                            Your Story.
+                        </h2>
+
+                        <p class="mt-5 max-w-[330px] text-sm leading-7 text-white/90">
+                            Discover timeless fashion, beautiful accessories,
+                            and styles made just for you.
+                        </p>
+
+
+
+                    </div>
+                </div>
+            </swiper-slide>
+
+        </swiper-container>
+
+
+        <!-- RIGHT: SIGN UP FORM -->
+        <div class="flex items-center justify-center px-6 py-10 sm:px-12 lg:px-16">
+
+            <div class="w-full max-w-[430px]">
+
+                <!-- Heading -->
+                <div class="mb-7">
+
+                    <p class="mb-3 text-[11px] font-bold uppercase tracking-[0.3em] text-[#008764]">
+                        Join AldoraCart
+                    </p>
+
+                    <h1 class="font-serif text-4xl leading-tight text-[#171717] sm:text-[44px]">
+                        Create your account<span class="text-[#008764]">.</span>
+                    </h1>
+
+                    <p class="mt-3 text-sm leading-6 text-stone-500">
+                        Join us and start your fashion journey today.
+                    </p>
+
+                </div>
+
+                <!-- Social Buttons -->
+                <div class="grid grid-cols-2 gap-3">
+
+                    <button type="button"
+                        class="flex h-11 items-center justify-center gap-2 rounded-xl border border-stone-200 bg-white text-sm font-medium text-stone-700 transition-all duration-300 hover:-translate-y-0.5 hover:border-[#008764]/40 hover:bg-emerald-50/40">
+                        <span class="font-bold text-[#4285F4]">G</span>
+                        Google
+                    </button>
+
+                    <button type="button"
+                        class="flex h-11 items-center justify-center gap-2 rounded-xl border border-stone-200 bg-white text-sm font-medium text-stone-700 transition-all duration-300 hover:-translate-y-0.5 hover:border-[#008764]/40 hover:bg-emerald-50/40">
+                        <span class="font-bold text-[#1877F2]">f</span>
+                        Facebook
+                    </button>
+
+                </div>
+
+                <!-- Divider -->
+                <div class="my-6 flex items-center gap-4">
+                    <div class="h-px flex-1 bg-stone-200"></div>
+                    <span class="text-xs text-stone-400">or</span>
+                    <div class="h-px flex-1 bg-stone-200"></div>
+                </div>
+
+                <!-- FORM: PRESENTATION ONLY -->
+                <form class="space-y-4">
+
+                    <!-- Name -->
+                    <div>
+                        <label for="name" class="mb-2 block text-xs font-semibold text-stone-800">
+                            Name <span class="text-red-500">*</span>
+                        </label>
+
+                        <input id="name" type="text" placeholder="Enter your full name"
+                            class="h-12 w-full rounded-xl border border-stone-200 bg-[#fafafa] px-4 text-sm text-stone-800 outline-none transition-all duration-300 placeholder:text-stone-400 focus:border-[#008764] focus:bg-white focus:ring-4 focus:ring-emerald-600/10" />
+                    </div>
+
+                    <!-- Email -->
+                    <div>
+                        <label for="email" class="mb-2 block text-xs font-semibold text-stone-800">
+                            Email <span class="text-red-500">*</span>
+                        </label>
+
+                        <input id="email" type="email" placeholder="you@example.com"
+                            class="h-12 w-full rounded-xl border border-stone-200 bg-[#fafafa] px-4 text-sm text-stone-800 outline-none transition-all duration-300 placeholder:text-stone-400 focus:border-[#008764] focus:bg-white focus:ring-4 focus:ring-emerald-600/10" />
+                    </div>
+
+                    <!-- Password -->
+                    <div>
+                        <label for="password" class="mb-2 block text-xs font-semibold text-stone-800">
+                            Password <span class="text-red-500">*</span>
+                        </label>
+
+                        <input id="password" type="password" placeholder="Create a strong password"
+                            class="h-12 w-full rounded-xl border border-stone-200 bg-[#fafafa] px-4 text-sm text-stone-800 outline-none transition-all duration-300 placeholder:text-stone-400 focus:border-[#008764] focus:bg-white focus:ring-4 focus:ring-emerald-600/10" />
+
+                        <!-- Decorative password strength indicator -->
+                        <div class="mt-2 flex gap-1">
+                            <div class="h-1.5 flex-1 rounded-full bg-[#008764]"></div>
+                            <div class="h-1.5 flex-1 rounded-full bg-stone-200"></div>
+                            <div class="h-1.5 flex-1 rounded-full bg-stone-200"></div>
+                            <div class="h-1.5 flex-1 rounded-full bg-stone-200"></div>
+                        </div>
+
+                        <p class="mt-2 text-[11px] text-stone-400">
+                            Must be at least 8 characters with numbers and symbols.
+                        </p>
+                    </div>
+
+                    <!-- Confirm Password -->
+                    <div>
+                        <label for="confirmPassword" class="mb-2 block text-xs font-semibold text-stone-800">
+                            Confirm Password <span class="text-red-500">*</span>
+                        </label>
+
+                        <input id="confirmPassword" type="password" placeholder="Confirm your password"
+                            class="h-12 w-full rounded-xl border border-stone-200 bg-[#fafafa] px-4 text-sm text-stone-800 outline-none transition-all duration-300 placeholder:text-stone-400 focus:border-[#008764] focus:bg-white focus:ring-4 focus:ring-emerald-600/10" />
+                    </div>
+
+                    <!-- Phone -->
+                    <div>
+                        <label for="phone" class="mb-2 block text-xs font-semibold text-stone-800">
+                            Phone Number <span class="text-red-500">*</span>
+                        </label>
+
+                        <input id="phone" type="tel" placeholder="+962 7X XXX XXXX"
+                            class="h-12 w-full rounded-xl border border-stone-200 bg-[#fafafa] px-4 text-sm text-stone-800 outline-none transition-all duration-300 placeholder:text-stone-400 focus:border-[#008764] focus:bg-white focus:ring-4 focus:ring-emerald-600/10" />
+                    </div>
+
+                    <!-- Terms -->
+                    <label class="flex cursor-pointer items-start gap-3 pt-1">
+
+                        <input type="checkbox" class="mt-0.5 h-4 w-4 shrink-0 accent-[#008764]" />
+
+                        <span class="text-xs leading-5 text-stone-600">
+                            I agree to the
+                            <a href="/terms" class="font-semibold text-[#008764] hover:underline">
+                                Terms of Service
+                            </a>
+                            and
+                            <a href="/privacy" class="font-semibold text-[#008764] hover:underline">
+                                Privacy Policy
+                            </a>
+                            <span class="text-red-500">*</span>
+                        </span>
+
+                    </label>
+
+                    <!-- Create Account Button -->
+                    <button type="button"
+                        class="group flex h-[52px] w-full items-center justify-center gap-3 rounded-xl bg-[#008764] text-sm font-semibold text-white shadow-lg shadow-emerald-800/10 transition-all duration-300 hover:-translate-y-0.5 hover:bg-[#006b50] hover:shadow-xl">
+                        Create My Account
+
+                        <span class="transition-transform duration-300 group-hover:translate-x-1">
+                            &rarr;
+                        </span>
+                    </button>
+
+                </form>
+
+                <!-- Login Link -->
+                <p class="mt-8 text-center text-sm text-stone-500">
+                    Already have an account?
+
+                    <a routerLink="/login" class="ml-1 font-semibold text-[#008764] hover:underline">
+                        Sign In
+                    </a>
+                </p>
+
+            </div>
+        </div>
+
+    </div>
+</section>
