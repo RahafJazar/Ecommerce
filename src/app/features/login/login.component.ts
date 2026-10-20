@@ -1,4 +1,5 @@
-import { Component, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { Component, CUSTOM_ELEMENTS_SCHEMA, inject } from '@angular/core';
+import { FormBuilder } from '@angular/forms';
 import { RouterLink } from '@angular/router';
 
 @Component({
@@ -8,4 +9,7 @@ import { RouterLink } from '@angular/router';
   templateUrl: './login.component.html',
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
-export class LoginComponent { }
+export class LoginComponent {
+  private readonly x = inject(FormBuilder)
+
+}
