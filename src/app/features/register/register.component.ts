@@ -1,5 +1,5 @@
-import { Component, computed, CUSTOM_ELEMENTS_SCHEMA, inject } from '@angular/core';
-import { toSignal } from '@angular/core/rxjs-interop';
+import { Component, computed, CUSTOM_ELEMENTS_SCHEMA, DestroyRef, inject, OnChanges, OnInit, signal, Signal, WritableSignal } from '@angular/core';
+import { takeUntilDestroyed, toSignal } from '@angular/core/rxjs-interop';
 import { AbstractControl, FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
 import { map, startWith } from 'rxjs';
@@ -14,69 +14,98 @@ import { AuthService } from '../../core/auth/services/auth.service';
   templateUrl: './register.component.html',
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
-export class RegisterComponent {
+export class RegisterComponent implements OnInit {
+
   private readonly fb = inject(FormBuilder);
   private readonly authService = inject(AuthService);
   private readonly router = inject(Router);
+  private readonly destroyRef = inject(DestroyRef);
+  registerForm!: FormGroup;
 
-  registerForm: FormGroup = this.fb.group
-    (
-      {
-        name: ['', [Validators.required, Validators.minLength(3)]],
-        email: ['', [Validators.required, Validators.email]],
-        password: ['', [Validators.required, passwordRules]],
-        //at least one uppercase letter, one lowercase letter, one number, one special character, and a minimum length of 8 characters
-        rePassword: ['', [Validators.required]],
-        phone: ['', [Validators.required, Validators.pattern(/^(\+20|01|00201)[0-2,5]{1}[0-9]{8}$/)]],
+  ngOnInit(): void {
+    this.registerFormInit();
+    this.passCheckDef();
+  }
+  registerFormInit(): void {
 
-      }
-      ,
-      {
-        validators: [confirmPassword]
-      }
-    );
+    this.registerForm = this.fb.group
+      (
+        {
+          name: ['', [Validators.required, Validators.minLength(3)]],
+          email: ['', [Validators.required, Validators.email]],
+          password: ['', [Validators.required, passwordRules]],
+          //at least one uppercase letter, one lowercase letter, one number, one special character, and a minimum length of 8 characters
+          rePassword: ['', [Validators.required]],
+          phone: ['', [Validators.required, Validators.pattern(/^(\+20|01|00201)[0-2,5]{1}[0-9]{8}$/)]],
+
+        }
+        ,
+        {
+          validators: [confirmPassword]
+        }
+      );
 
 
+  }
 
-  /*--------Validate Password Strength -------*/
-  readonly passCheck = toSignal(
-    this.registerForm.controls['password'].valueChanges.pipe(
-      startWith(this.registerForm.controls['password'].value),
-      map(value => {
-        const errors =
-          this.registerForm.controls['password'].getError('passwordRules');
+  // ========================================
+  // 3. Password Strength Checks
+  // ========================================
 
-        const hasValue = value.length > 0;
+  readonly passCheck = signal([
+    { label: '8 أحرف على الأقل', valid: false },
+    { label: 'حرف كبير (A–Z)', valid: false },
+    { label: 'حرف صغير (a–z)', valid: false },
+    { label: 'رقم واحد على الأقل', valid: false },
+    { label: 'رمز خاص من @ # $ % ^ & * !', valid: false }
+  ]);
 
-        return [
-          {
-            label: '8 أحرف على الأقل',
-            valid: hasValue && !errors?.minLength,
-          },
-          {
-            label: 'حرف كبير (A–Z)',
-            valid: hasValue && !errors?.uppercase,
-          },
-          {
-            label: 'حرف صغير (a–z)',
-            valid: hasValue && !errors?.lowercase,
-          },
-          {
-            label: 'رقم واحد على الأقل',
-            valid: hasValue && !errors?.number,
-          },
-          {
-            label: 'رمز خاص من @ # $ % ^ & * !',
-            valid: hasValue && !errors?.special,
-          },
-        ];
-      })
-    ),
-    { requireSync: true }
-  );
   readonly completedChecks = computed(
     () => this.passCheck().filter(check => check.valid).length
   );
+
+
+  /*--------Validate Password Strength -------*/
+  passCheckDef(): void {
+    const passwordControl = this.registerForm.controls['password'];
+
+    passwordControl.valueChanges
+      .pipe(
+        startWith(passwordControl.value),
+        map(() => {
+          const errors = passwordControl.errors?.['passwordRules'];
+
+
+          return [
+            {
+              label: '8 أحرف على الأقل',
+              valid: passwordControl.value?.length >= 8
+            },
+            {
+              label: 'حرف كبير (A–Z)',
+              valid: /[A-Z]/.test(passwordControl.value ?? '')
+            },
+            {
+              label: 'حرف صغير (a–z)',
+              valid: /[a-z]/.test(passwordControl.value ?? '')
+            },
+            {
+              label: 'رقم واحد على الأقل',
+              valid: /[0-9]/.test(passwordControl.value ?? '')
+            },
+            {
+              label: 'رمز خاص من @ # $ % ^ & * !',
+              valid: /[@#$%^&*!]/.test(passwordControl.value ?? '')
+            }
+          ];
+        }),
+        takeUntilDestroyed(this.destroyRef)
+      )
+      .subscribe(checks => {
+        this.passCheck.set(checks);
+      });
+  }
+
 
 
 

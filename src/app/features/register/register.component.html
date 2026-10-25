@@ -240,6 +240,7 @@
                                 </div>
 
                                 <ul class="grid grid-cols-1 gap-2 sm:grid-cols-2">
+
                                     @for (check of passCheck(); track check.label) {
                                     <li class="flex items-center gap-2 text-xs transition-colors"
                                         [class.text-emerald-700]="check.valid" [class.text-stone-500]="!check.valid">
@@ -259,6 +260,9 @@
                                         </span>
                                     </li>
                                     }
+
+
+
                                 </ul>
                             </div>
                         </div>

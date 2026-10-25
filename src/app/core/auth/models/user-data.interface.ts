@@ -1,7 +1,7 @@
 export interface UserDataResp {
     message: string,
     user: User,
-    toke: string
+    token: string
 }
 interface User {
     name: string,
