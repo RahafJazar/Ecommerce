@@ -16,4 +16,14 @@ export class AuthService {
     signIn(body: FormGroup): Observable<UserDataResp> {
         return this.httpClient.post<UserDataResp>(`${environment.base_url}/api/v1/auth/signin`, body)
     }
+    forgotPassword(body: Object): Observable<any> {
+        return this.httpClient.post<any>(`${environment.base_url}/api/v1/auth/forgotPasswords`, body);
+    }
+    verifyResetCode(body: Object): Observable<any> {
+        return this.httpClient.post<any>(`${environment.base_url}/api/v1/auth/verifyResetCode`, body);
+    }
+    resetPassword(body: Object): Observable<any> {
+        return this.httpClient.put<any>(`${environment.base_url}/api/v1/auth/resetPassword`, body);
+    }
+
 }

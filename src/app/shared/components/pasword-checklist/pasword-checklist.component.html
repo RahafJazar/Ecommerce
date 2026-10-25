@@ -1,0 +1,53 @@
+<!----هذا الـ Component رح يكون مسؤولًا عن عرض الشروط والـ progress bar فقط.-->
+
+
+<div class="mt-3 space-y-3">
+    <!-- Conditions progress -->
+    <div class="flex gap-1" aria-hidden="true">
+        @for (item of passCheck(); track item.label; let i = $index) {
+        <div class="h-1.5 flex-1 rounded-full transition-colors duration-300"
+            [class.bg-emerald-600]="i < completedChecks()" [class.bg-stone-200]="i >= completedChecks()"></div>
+        }
+    </div>
+
+    <!-- Conditions checklist -->
+    <div dir="rtl" class="rounded-xl border border-stone-100 bg-stone-50 p-3">
+        <div class="mb-3 flex items-center justify-between text-xs">
+            <span class="font-medium text-stone-600">
+                شروط كلمة المرور
+            </span>
+
+            <span class="text-stone-500">
+                {{ completedChecks() }} / {{ passCheck().length }}
+            </span>
+        </div>
+
+        <ul class="grid grid-cols-1 gap-2 sm:grid-cols-2">
+
+            @for (check of passCheck(); track check.label)
+            {
+            <li class="flex items-center gap-2 text-xs transition-colors" [class.text-emerald-700]="check.valid"
+                [class.text-stone-500]="!check.valid">
+                <span aria-hidden="true" class="flex size-4 shrink-0 items-center justify-center
+                                rounded-full border" [class.bg-emerald-600]="check.valid"
+                    [class.border-emerald-600]="check.valid" [class.text-white]="check.valid"
+                    [class.border-stone-300]="!check.valid">
+                    @if (check.valid) {
+                    ✓
+                    }
+                </span>
+
+                <span>
+                    {{ check.label }}
+                    <span class="sr-only">
+                        {{ check.valid ? 'متحقق' : 'غير متحقق' }}
+                    </span>
+                </span>
+            </li>
+            }
+
+
+
+        </ul>
+    </div>
+</div>

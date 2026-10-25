@@ -6,9 +6,10 @@ import { map, startWith } from 'rxjs';
 import { passwordRules } from '../../shared/validators/password.validator';
 import { confirmPassword } from '../../shared/validators/confirm-password.validator';
 import { AuthService } from '../../core/auth/services/auth.service';
+import { PaswordChecklistComponent } from '../../shared/components/pasword-checklist/pasword-checklist.component';
 
 @Component({
-  imports: [RouterLink, ReactiveFormsModule],
+  imports: [RouterLink, ReactiveFormsModule, PaswordChecklistComponent],
   selector: 'app-register',
   styleUrl: './register.component.css',
   templateUrl: './register.component.html',

@@ -1,18 +1,19 @@
-import { ValidatorFn } from "@angular/forms";
-import { countReset } from "console";
+import { ValidatorFn } from '@angular/forms';
+import { PASSWORD_RULES } from './password-rules';
 
 export const passwordRules: ValidatorFn = control => {
-    const value: string = control?.value;
+    const value: string = control.value ?? '';
 
     if (!value) return null;
 
-    const errors = {
-        minLength: value.length < 8,
-        uppercase: !/[A-Z]/.test(value),
-        lowercase: !/[a-z]/.test(value),
-        number: !/[0-9]/.test(value),
-        special: !/[@#$%^&*!]/.test(value),
-    }
+    const errors = Object.fromEntries(
+        PASSWORD_RULES.map(rule => [
+            rule.key,
+            !rule.test(value)
+        ])
+    );
 
-    return Object.values(errors).some(Boolean) ? { passwordRules: errors } : null
-}
+    return Object.values(errors).some(Boolean)
+        ? { passwordRules: errors }
+        : null;
+};
