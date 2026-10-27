@@ -46,6 +46,7 @@ export class LoginComponent implements OnInit {
 
   /*----- submitForm --------*/
   submitForm(): void {
+
     if (this.loginForm.valid) {
       this.signIn(this.loginForm.value)
     } else {
@@ -63,7 +64,8 @@ export class LoginComponent implements OnInit {
 
           localStorage.setItem('freshToken', resp.token);
           localStorage.setItem('userData', JSON.stringify(resp.user))
-
+          //set isLogged to true
+          this.authService.isLogged.set(true)
           //navigate to home page(default)
           this.router.navigate(['/'])
         }

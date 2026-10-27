@@ -1,4 +1,5 @@
 import { Routes } from '@angular/router';
+import { authGuard } from './core/guards/auth.guard';
 
 export const routes: Routes = [
     // one layout -> no nesting
@@ -29,18 +30,21 @@ export const routes: Routes = [
     {
         path: 'wishlist',
         title: 'AldoraCart | Wishlist',
+        canActivate: [authGuard],
         loadComponent: () =>
             import('./features/wishlist/wishlist.component').then(c => c.WishlistComponent)
     },
     {
         path: 'checkout',
         title: 'AldoraCart | Checkout',
+        canActivate: [authGuard],
         loadComponent: () =>
             import('./features/checkout/checkout.component').then(c => c.CheckoutComponent)
     },
     {
         path: 'cart',
         title: 'AldoraCart | Cart',
+        canActivate: [authGuard],
         loadComponent: () =>
             import('./features/cart/cart.component').then(c => c.CartComponent)
     },

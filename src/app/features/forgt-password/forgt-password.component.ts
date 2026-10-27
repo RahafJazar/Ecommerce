@@ -4,6 +4,7 @@ import { passwordRules } from '../../shared/validators/password.validator';
 import { PaswordChecklistComponent } from '../../shared/components/pasword-checklist/pasword-checklist.component';
 import { AuthService } from '../../core/auth/services/auth.service';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   imports: [PaswordChecklistComponent, ReactiveFormsModule],
@@ -14,6 +15,7 @@ import { Router } from '@angular/router';
 export class ForgtPasswordComponent {
   private readonly authService = inject(AuthService);
   private readonly router = inject(Router);
+  private readonly toastrService = inject(ToastrService)
   step: WritableSignal<number> = signal<number>(1);
 
   emailControl: WritableSignal<FormControl> = signal<FormControl>(new FormControl('', [Validators.required, Validators.email]));
@@ -22,6 +24,7 @@ export class ForgtPasswordComponent {
 
 
   submitEmail(event: SubmitEvent): void {
+
     //prevent default behaviour
     event.preventDefault();
     if (this.emailControl().valid) {
@@ -35,7 +38,16 @@ export class ForgtPasswordComponent {
         next: (resp) => {
           console.log(resp);
           if (resp.statusMsg === 'Success') {
-            this.step.set(2);
+            this.toastrService.success(resp.message, '', {
+              closeButton: true,
+              timeOut: 1000,
+              progressBar: true,
+              progressAnimation: 'decreasing'
+            })
+            setTimeout(() => {
+              this.step.set(2);
+            }, 1000);
+
           }
 
         }
@@ -56,7 +68,16 @@ export class ForgtPasswordComponent {
         next: (resp) => {
           console.log(resp);
           if (resp.statusMsg === 'Success') {
-            this.step.set(3);
+            this.toastrService.success('Code Verified Successfully', '', {
+              closeButton: true,
+              timeOut: 1000,
+              progressBar: true,
+              progressAnimation: 'decreasing'
+            })
+            setTimeout(() => {
+              this.step.set(3);
+            }, 1000);
+
           }
         }
       })
@@ -78,7 +99,12 @@ export class ForgtPasswordComponent {
         next: (resp) => {
           if (resp.statusMsg === 'Success') {
             //toastr message
-
+            this.toastrService.success('Password Reset Successfully', '', {
+              closeButton: true,
+              timeOut: 2000,
+              progressBar: true,
+              progressAnimation: 'decreasing'
+            })
             //navigate to login
             setTimeout(() => {
               this.router.navigate(['/login'])

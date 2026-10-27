@@ -137,8 +137,16 @@
                 <span
                     class="absolute -right-0.5 -top-0.5 flex h-5 min-w-5 items-center justify-center rounded-full border-2 border-white bg-emerald-600 px-1 text-[10px] font-bold leading-none text-white">3</span>
             </a>
-
-            <!-- Auth (desktop) -->
+            @if (isLogged()) {
+            <!-----Signout-->
+            <div class="group relative ml-1 border-l border-gray-200 pl-3">
+                <a (click)="logOut()"
+                    class="rounded-full px-4 py-2 text-sm font-semibold text-gray-700 transition-colors hover:bg-gray-100 hover:text-emerald-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500">Sign
+                    out</a>
+            </div>
+            }
+            @else {
+            <!-----Signup /sigin-->
             <div class="ml-1 hidden items-center gap-2 border-l border-gray-200 pl-3 sm:flex">
                 <a routerLink="/login"
                     class="rounded-full px-4 py-2 text-sm font-semibold text-gray-700 transition-colors hover:bg-gray-100 hover:text-emerald-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500">Sign
@@ -147,18 +155,14 @@
                     class="rounded-full bg-emerald-600 px-5 py-2 text-sm font-semibold text-white shadow-sm shadow-emerald-600/30 transition-all hover:bg-emerald-700 hover:shadow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500 focus-visible:ring-offset-2">Sign
                     up</a>
             </div>
+            }
+            <!-- Auth (desktop) -->
+
 
             <!--
         Logged-in state (replace the auth block above with this using @if):
 
-        <div class="group relative ml-1 border-l border-gray-200 pl-3">
-          <button class="flex items-center gap-2 rounded-full p-1 pr-3 hover:bg-gray-100">
-            <span class="flex h-8 w-8 items-center justify-center rounded-full bg-emerald-600 text-sm font-bold text-white">A</span>
-            <span class="hidden text-sm font-semibold text-gray-700 md:block">Account</span>
-            <i class="fas fa-chevron-down text-[10px] text-gray-500"></i>
-          </button>
-          ...dropdown with Orders / Profile / Sign out...
-        </div>
+       
       -->
 
             <!-- Menu button (mobile) -->
