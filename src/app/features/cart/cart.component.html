@@ -1,1 +1,348 @@
-<p>cart works!</p>
+<section class="min-h-screen bg-slate-50 py-10 sm:py-14">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+
+        <!-- Header -->
+        <div class="mb-10 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+            <div>
+                <div class="mb-3 flex items-center gap-3">
+                    <div
+                        class="flex h-12 w-12 items-center justify-center rounded-2xl bg-emerald-600 text-white shadow-lg shadow-emerald-600/20">
+                        <i class="fa-solid fa-cart-shopping text-xl"></i>
+                    </div>
+                    <h1 class="text-3xl font-extrabold tracking-tight text-slate-900 sm:text-4xl">
+                        Shopping Cart
+                    </h1>
+                </div>
+                <p class="text-sm text-slate-500 sm:text-base">
+                    Review your selections before checkout.
+                    <span class="font-bold text-emerald-700">{{cartDetailsData().products.length}} items</span> in your
+                    cart
+                </p>
+            </div>
+
+            <a routerLink="/shop"
+                class="inline-flex items-center justify-center gap-2 self-start rounded-xl border border-slate-200 bg-white px-5 py-3 text-sm font-semibold text-slate-700 shadow-sm transition hover:border-emerald-300 hover:text-emerald-700 sm:self-auto">
+                <i class="fa-solid fa-arrow-left-long"></i>
+                Continue Shopping
+            </a>
+        </div>
+
+        <!-- Cart Layout -->
+        <div class="grid grid-cols-1 items-start gap-8 lg:grid-cols-12">
+
+
+            <!-- Cart Items -->
+            <div class="space-y-5 lg:col-span-8">
+                @for (item of cartDetailsData().products; track item.product._id) {
+                <!-- Cart Item -->
+                <div
+                    class="group rounded-3xl border border-slate-200/80 bg-white p-5 shadow-sm transition duration-300 hover:border-emerald-200 hover:shadow-lg hover:shadow-slate-200/50 sm:p-6">
+                    <div class="flex flex-col gap-5 sm:flex-row sm:items-center">
+
+                        <!-- Product Image -->
+                        <div class="relative mx-auto w-full shrink-0 sm:mx-0 sm:w-36">
+                            <div
+                                class="aspect-square overflow-hidden rounded-2xl bg-gradient-to-br from-stone-100 to-slate-100">
+                                <img [src]="item.product.imageCover" [alt]="item.product.title"
+                                    [title]="item.product.title"
+                                    class="h-full w-full object-cover transition duration-500 group-hover:scale-105" />
+                            </div>
+                            @if (item.product.quantity>0) {
+                            <span
+                                class="absolute bottom-3 left-3 inline-flex items-center gap-1.5 rounded-full border border-white/80 bg-white/95 px-3 py-1.5 text-xs font-bold text-emerald-700 shadow-sm">
+                                <span class="h-1.5 w-1.5 rounded-full bg-emerald-500"></span>
+                                In Stock
+                            </span>
+                            }
+                            @else {
+                            <span
+                                class="absolute bottom-3 left-3 inline-flex items-center gap-1.5 rounded-full border border-white/80 bg-white/95 px-3 py-1.5 text-xs font-bold text-red-700  shadow-sm">
+                                <span class="h-1.5 w-1.5 rounded-full bg-red-500"></span>
+                                Out of Stock
+                            </span>
+                            }
+
+                        </div>
+
+                        <!-- Product Details -->
+                        <div class="min-w-0 flex-1 text-center sm:text-left">
+                            <div class="mb-2 flex flex-wrap items-center justify-center gap-2 sm:justify-start">
+                                <span
+                                    class="rounded-full bg-emerald-50 px-3 py-1 text-xs font-semibold text-emerald-700">
+                                    {{item.product.category.name}}
+                                </span>
+                                <span class="text-xs text-slate-400">SKU: 5CA0AD</span>
+                            </div>
+
+                            <h2
+                                class="text-xl font-bold text-slate-900 transition group-hover:text-emerald-700 sm:text-2xl">
+                                {{item.product.title}}
+                            </h2>
+
+                            <p class="mt-2 text-sm leading-relaxed text-slate-500">
+                                {{item.product.slug}}
+                            </p>
+
+                            <div class="mt-4 flex items-baseline justify-center gap-2 sm:justify-start">
+                                <span class="text-2xl font-extrabold tracking-tight text-emerald-700">{{item.price |
+                                    currency:"GBP"}} EGP</span>
+                                <span class="text-xs text-slate-400">per unit</span>
+                            </div>
+                        </div>
+
+                        <!-- Quantity and Total -->
+                        <div
+                            class="flex flex-wrap items-center justify-between gap-4 border-t border-slate-100 pt-5 sm:flex-col sm:items-end sm:border-0 sm:pt-0">
+
+                            <div class="flex items-center rounded-xl border border-slate-200 bg-slate-50 p-1">
+                                <button type="button" aria-label="Decrease quantity"
+                                    class="flex h-9 w-9 items-center justify-center rounded-lg text-slate-500 transition hover:bg-white hover:text-emerald-700 hover:shadow-sm">
+                                    <i class="fa-solid fa-minus text-xs"></i>
+                                </button>
+
+                                <span
+                                    class="min-w-10 text-center text-sm font-bold text-slate-900">{{item.count}}</span>
+
+                                <button type="button" aria-label="Increase quantity"
+                                    class="flex h-9 w-9 items-center justify-center rounded-lg bg-emerald-600 text-white shadow-sm transition hover:bg-emerald-700">
+                                    <i class="fa-solid fa-plus text-xs"></i>
+                                </button>
+                            </div>
+
+                            <div class="text-right">
+                                <p class="mb-1 text-xs font-medium uppercase tracking-wider text-slate-400">Item Total
+                                </p>
+                                <p class="text-xl font-extrabold text-slate-900">
+                                    {{item.count*item.price |currency :"GBP"}} <span
+                                        class="text-sm font-semibold text-slate-500">EGP</span>
+                                </p>
+                            </div>
+
+                            <button type="button" aria-label="Remove Woman Shawl"
+                                class="flex h-10 w-10 items-center justify-center rounded-xl bg-rose-50 text-rose-500 transition hover:bg-rose-100 hover:text-rose-700 sm:self-end">
+                                <i class="fa-regular fa-trash-can"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                }
+
+                <!-- Continue Shopping / Clear Cart -->
+                <div class="flex flex-wrap items-center justify-between gap-4 px-1 pt-1">
+                    <a href="#products"
+                        class="inline-flex items-center gap-2 text-sm font-semibold text-emerald-700 transition hover:text-emerald-800">
+                        <i class="fa-solid fa-arrow-left-long transition-transform group-hover:-translate-x-1"></i>
+                        Continue Shopping
+                    </a>
+
+                    <button type="button"
+                        class="inline-flex items-center gap-2 text-sm font-medium text-slate-400 transition hover:text-rose-600">
+                        <i class="fa-regular fa-trash-can"></i>
+                        Clear all items
+                    </button>
+                </div>
+
+                <!-- Shopping Benefits -->
+                <div class="grid grid-cols-1 gap-3 pt-3 sm:grid-cols-3">
+                    <div class="flex items-center gap-3 rounded-2xl border border-slate-200/70 bg-white p-4">
+                        <div
+                            class="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-emerald-50 text-emerald-700">
+                            <i class="fa-solid fa-shield-halved"></i>
+                        </div>
+                        <div>
+                            <p class="text-sm font-bold text-slate-800">Secure Shopping</p>
+                            <p class="mt-0.5 text-xs text-slate-500">Your data is protected</p>
+                        </div>
+                    </div>
+
+                    <div class="flex items-center gap-3 rounded-2xl border border-slate-200/70 bg-white p-4">
+                        <div
+                            class="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-blue-50 text-blue-600">
+                            <i class="fa-solid fa-truck-fast"></i>
+                        </div>
+                        <div>
+                            <p class="text-sm font-bold text-slate-800">Fast Delivery</p>
+                            <p class="mt-0.5 text-xs text-slate-500">To your doorstep</p>
+                        </div>
+                    </div>
+
+                    <div class="flex items-center gap-3 rounded-2xl border border-slate-200/70 bg-white p-4">
+                        <div
+                            class="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-violet-50 text-violet-600">
+                            <i class="fa-solid fa-rotate-left"></i>
+                        </div>
+                        <div>
+                            <p class="text-sm font-bold text-slate-800">Easy Returns</p>
+                            <p class="mt-0.5 text-xs text-slate-500">Hassle-free process</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <!-- Order Summary -->
+            <aside class="lg:col-span-4">
+                <div
+                    class="overflow-hidden rounded-3xl border border-slate-200/80 bg-white shadow-sm lg:sticky lg:top-6">
+
+                    <!-- Summary Header -->
+                    <div
+                        class="relative overflow-hidden bg-gradient-to-br from-emerald-700 via-emerald-600 to-teal-700 p-6 text-white">
+                        <div
+                            class="pointer-events-none absolute -right-8 -top-12 h-40 w-40 rounded-full border-[24px] border-white/5">
+                        </div>
+                        <div class="pointer-events-none absolute -bottom-12 right-20 h-28 w-28 rounded-full bg-white/5">
+                        </div>
+
+                        <div class="relative flex items-center gap-4">
+                            <div
+                                class="flex h-12 w-12 items-center justify-center rounded-2xl bg-white/15 ring-1 ring-white/20">
+                                <i class="fa-solid fa-receipt text-xl"></i>
+                            </div>
+                            <div>
+                                <h2 class="text-xl font-bold">Order Summary</h2>
+                                <p class="mt-1 text-sm text-emerald-100">{{cartDetailsData().products.length}} items in
+                                    your cart</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="p-6 sm:p-7">
+
+                        <!-- Free Shipping -->
+                        <div
+                            class="mb-7 flex items-center gap-4 rounded-2xl border border-emerald-100 bg-emerald-50/80 p-4">
+                            <div
+                                class="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-white text-emerald-700 shadow-sm">
+                                <i class="fa-solid fa-truck-fast text-xl"></i>
+                            </div>
+                            <div class="min-w-0 flex-1">
+                                <p class="font-bold text-emerald-800">Free Shipping!</p>
+                                <p class="mt-1 text-xs leading-relaxed text-emerald-700/80">
+                                    You qualify for free delivery.
+                                </p>
+                            </div>
+                            <i class="fa-solid fa-circle-check text-lg text-emerald-600"></i>
+                        </div>
+
+                        <!-- Price Breakdown -->
+                        <div class="space-y-4">
+                            <div class="flex items-center justify-between text-sm">
+                                <span class="text-slate-500">Subtotal</span>
+                                <span class="font-semibold text-slate-800">{{cartDetailsData().totalCartPrice |currency
+                                    :"GBP"}}
+                                    EGP</span>
+                            </div>
+
+                            <div class="flex items-center justify-between text-sm">
+                                <span class="text-slate-500">Shipping</span>
+                                <span class="font-bold text-emerald-700">FREE</span>
+                            </div>
+                        </div>
+
+                        <div class="my-6 border-t border-dashed border-slate-200"></div>
+
+                        <!-- Grand Total -->
+                        <div class="mb-7 flex items-end justify-between gap-3">
+                            <div>
+                                <p class="text-sm font-semibold text-slate-500">Total Amount</p>
+                                <p class="mt-1 text-xs text-slate-400">Including shipping</p>
+                            </div>
+                            <p class="whitespace-nowrap text-3xl font-extrabold tracking-tight text-slate-900">
+                                596 <span class="text-base font-bold text-slate-500">EGP</span>
+                            </p>
+                        </div>
+
+                        <!-- Checkout -->
+                        <button type="button"
+                            class="group flex w-full items-center justify-center gap-3 rounded-2xl bg-emerald-600 px-5 py-4 font-bold text-white shadow-lg shadow-emerald-600/20 transition duration-300 hover:-translate-y-0.5 hover:bg-emerald-700 hover:shadow-xl hover:shadow-emerald-700/20 focus:outline-none focus:ring-4 focus:ring-emerald-100">
+                            <i class="fa-solid fa-lock text-sm text-emerald-100"></i>
+                            Secure Checkout
+                            <i
+                                class="fa-solid fa-arrow-right ml-auto transition-transform group-hover:translate-x-1"></i>
+                        </button>
+
+                        <!-- Payment Methods -->
+                        <div class="mt-5 flex items-center justify-center gap-2 text-xs text-slate-400">
+                            <i class="fa-solid fa-shield-halved text-emerald-600"></i>
+                            <span>Protected and encrypted checkout</span>
+                        </div>
+
+                        <div class="mt-5 flex items-center justify-center gap-3 border-t border-slate-100 pt-5">
+                            <div
+                                class="flex h-9 w-12 items-center justify-center rounded-lg border border-slate-200 bg-white text-slate-600">
+                                <i class="fa-brands fa-cc-visa text-2xl"></i>
+                            </div>
+                            <div
+                                class="flex h-9 w-12 items-center justify-center rounded-lg border border-slate-200 bg-white text-slate-600">
+                                <i class="fa-brands fa-cc-mastercard text-2xl"></i>
+                            </div>
+                            <div
+                                class="flex h-9 w-12 items-center justify-center rounded-lg border border-slate-200 bg-white text-slate-600">
+                                <i class="fa-solid fa-credit-card text-lg"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </aside>
+        </div>
+
+        <!-- Empty Cart State -->
+        <div
+            class="relative mt-12 overflow-hidden rounded-3xl border border-emerald-100 bg-white p-8 shadow-sm sm:p-12">
+            <!-- Decorative Background -->
+            <div class="pointer-events-none absolute -left-16 -top-20 h-64 w-64 rounded-full bg-emerald-50/80 blur-3xl">
+            </div>
+            <div class="pointer-events-none absolute -bottom-24 right-0 h-64 w-64 rounded-full bg-teal-50/80 blur-3xl">
+            </div>
+
+            <div
+                class="relative mx-auto flex max-w-4xl flex-col items-center gap-8 text-center sm:flex-row sm:text-left">
+
+                <!-- Empty Illustration -->
+                <div
+                    class="relative flex h-44 w-44 shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-emerald-50 to-teal-50 ring-1 ring-emerald-100 sm:h-52 sm:w-52">
+                    <div class="absolute inset-4 rounded-full border border-dashed border-emerald-200"></div>
+                    <div
+                        class="flex h-28 w-28 items-center justify-center rounded-3xl bg-white text-emerald-600 shadow-xl shadow-emerald-900/5 sm:h-32 sm:w-32">
+                        <i class="fa-solid fa-basket-shopping text-5xl"></i>
+                    </div>
+                    <span
+                        class="absolute right-5 top-5 flex h-9 w-9 items-center justify-center rounded-full bg-emerald-600 text-white shadow-md">
+                        <i class="fa-solid fa-plus text-sm"></i>
+                    </span>
+                </div>
+
+                <!-- Empty Cart Content -->
+                <div class="flex-1">
+                    <span
+                        class="mb-4 inline-flex items-center gap-2 rounded-full bg-emerald-50 px-3 py-1.5 text-xs font-bold uppercase tracking-wider text-emerald-700">
+                        <span class="h-1.5 w-1.5 rounded-full bg-emerald-500"></span>
+                        Your next favorite is waiting
+                    </span>
+
+                    <h2 class="text-3xl font-extrabold tracking-tight text-slate-900 sm:text-4xl">
+                        Your cart is empty
+                    </h2>
+
+                    <p class="mx-auto mt-4 max-w-lg text-base leading-7 text-slate-500 sm:mx-0">
+                        Looks like you haven't added anything to your cart yet.
+                        Discover our collection and find something you love.
+                    </p>
+
+                    <a href="#products"
+                        class="group mt-7 inline-flex items-center justify-center gap-3 rounded-xl bg-emerald-600 px-7 py-4 font-bold text-white shadow-lg shadow-emerald-600/20 transition duration-300 hover:-translate-y-0.5 hover:bg-emerald-700 hover:shadow-xl">
+                        Start Shopping
+                        <i class="fa-solid fa-arrow-right transition-transform group-hover:translate-x-1"></i>
+                    </a>
+
+                    <p class="mt-4 text-xs text-slate-400">
+                        <i class="fa-solid fa-heart mr-1 text-rose-400"></i>
+                        Thoughtfully selected styles, just for you.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</section>

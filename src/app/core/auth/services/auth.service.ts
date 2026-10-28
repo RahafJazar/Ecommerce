@@ -6,12 +6,13 @@ import { Observable } from 'rxjs';
 import { environment } from '../../../../environments/environment';
 import { UserDataResp } from '../models/user-data.interface';
 import { isPlatformBrowser } from '@angular/common';
-import { Router } from 'express';
+import { Router } from '@angular/router';
+;
 
 @Service()
 export class AuthService {
     private readonly httpClient = inject(HttpClient);
-    private router = inject(Router);
+    private readonly router = inject(Router);
     private readonly platform = inject(PLATFORM_ID)
     isLogged: WritableSignal<boolean> = signal<boolean>(true);
 
