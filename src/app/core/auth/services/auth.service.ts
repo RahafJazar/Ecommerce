@@ -14,7 +14,7 @@ export class AuthService {
     private readonly httpClient = inject(HttpClient);
     private readonly router = inject(Router);
     private readonly platform = inject(PLATFORM_ID)
-    isLogged: WritableSignal<boolean> = signal<boolean>(true);
+    isLogged: WritableSignal<boolean> = signal<boolean>(false);
 
     signUp(body: FormGroup): Observable<UserDataResp> {
         return this.httpClient.post<UserDataResp>(`${environment.base_url}/api/v1/auth/signup`, body)
@@ -35,7 +35,7 @@ export class AuthService {
         if (isPlatformBrowser(this.platform)) {
             localStorage.clear();
             this.isLogged.set(false)
-            this.router.navigate(['/login'])
+            this.router.navigate([''])
         }
 
     }

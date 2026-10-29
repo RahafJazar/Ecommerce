@@ -1,9 +1,10 @@
 import { Component, computed, inject, OnInit, PLATFORM_ID, Signal } from '@angular/core';
-import { RouterLink, RouterLinkActive } from '@angular/router';
+import { Router, RouterLink, RouterLinkActive } from '@angular/router';
 import { initFlowbite } from 'flowbite';
 import { FlowbiteService } from '../../../core/services/flowbite/flowbite.service';
 import { AuthService } from '../../../core/auth/services/auth.service';
 import { isPlatformBrowser, PlatformLocation } from '@angular/common';
+import { fail } from 'assert';
 
 @Component({
   imports: [RouterLink, RouterLinkActive],
@@ -15,6 +16,7 @@ export class NavbarComponent implements OnInit {
   private readonly flowbite = inject(FlowbiteService);
   //copy of isLogged state
   private readonly authService = inject(AuthService);
+  private readonly router = inject(Router);
 
   //inject PLATFORM_ID
   private platform = inject(PLATFORM_ID)
@@ -36,6 +38,10 @@ export class NavbarComponent implements OnInit {
       const token = localStorage.getItem('freshToken');
       if (token) {
         this.authService.isLogged.set(true)
+      }
+      else {
+        this.authService.isLogged.set(false)
+        this.router.navigate(['/'])
       }
     }
   }

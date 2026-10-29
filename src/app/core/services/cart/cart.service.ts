@@ -18,18 +18,18 @@ export class CartService {
         return this.httpClient.get<CartDataResponse>(`${environment.base_url}/api/v2/cart`)
     }
 
-    removeProductFromCart(productId: string): Observable<any> {
-        return this.httpClient.delete<any>(`${environment.base_url}/api/v2/cart/${productId}`)
+    removeProductFromCart(productId: string): Observable<CartDataResponse> {
+        return this.httpClient.delete<CartDataResponse>(`${environment.base_url}/api/v2/cart/${productId}`)
     }
 
-    updateProductQuantity(productCount: number, productId: string): Observable<any> {
-        return this.httpClient.put<any>(`${environment.base_url}/api/v2/cart/${productId}`, {
+    updateProductQuantity(productCount: number, productId: string): Observable<CartDataResponse> {
+        return this.httpClient.put<CartDataResponse>(`${environment.base_url}/api/v2/cart/${productId}`, {
             "count": productCount
         })
     }
 
-    clearUserCart(): Observable<any> {
-        return this.httpClient.delete<any>(`${environment.base_url}/api/v2/cart`)
+    clearUserCart(): Observable<CartDataResponse> {
+        return this.httpClient.delete<CartDataResponse>(`${environment.base_url}/api/v2/cart`)
     }
 
 }
