@@ -265,7 +265,7 @@
                             </div>
 
                             <!-- Checkout -->
-                            <button type="button" routerLink="/checkout"
+                            <button type="button" [routerLink]="['/checkout',cartDetailsData()._id]"
                                 class="group flex w-full items-center justify-center gap-3 rounded-2xl bg-emerald-600 px-5 py-4 font-bold text-white shadow-lg shadow-emerald-600/20 transition duration-300 hover:-translate-y-0.5 hover:bg-emerald-700 hover:shadow-xl hover:shadow-emerald-700/20 focus:outline-none focus:ring-4 focus:ring-emerald-100">
                                 <i class="fa-solid fa-lock text-sm text-emerald-100"></i>
                                 Secure Checkout

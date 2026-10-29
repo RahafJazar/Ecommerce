@@ -35,7 +35,7 @@ export const routes: Routes = [
             import('./features/wishlist/wishlist.component').then(c => c.WishlistComponent)
     },
     {
-        path: 'checkout',
+        path: 'checkout/:id',
         title: 'AldoraCart | Checkout',
         canActivate: [authGuard],
         loadComponent: () =>

@@ -1,1 +1,159 @@
-<p>checkout works!</p>
+```html
+<section>
+    <div class="max-w-6xl py-10 mx-auto">
+        <!-- Header Information -->
+        <div class="flex flex-col md:flex-row md:items-center justify-between mb-8 gap-4">
+            <div>
+                <h1 class="text-3xl font-bold text-gray-900 flex items-center gap-3">
+                    <span class="bg-brand-700 text-white w-9 h-9 flex items-center justify-center rounded-md text-lg">
+                        <i class="fa-solid fa-receipt"></i>
+                    </span>
+                    Complete Your Order
+                </h1>
+                <p class="text-gray-500 mt-1">Review your items and complete your purchase</p>
+            </div>
+
+            <a href="#"
+                class="text-brand-600 hover:text-brand-800 font-medium flex items-center gap-2 transition-colors">
+                <i class="fa-solid fa-arrow-left-long"></i>
+                Back to Cart
+            </a>
+        </div>
+
+        <!-- Checkout Form -->
+        <div class="space-y-6">
+            <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
+                <div class="p-6">
+                    <form class="space-y-6">
+
+                        <!-- City -->
+                        <div>
+                            <label for="city" class="block mb-2 text-sm font-medium text-gray-900">
+                                City <span class="text-red-500">*</span>
+                            </label>
+                            <div class="relative">
+                                <div
+                                    class="absolute inset-y-0 start-0 flex items-center ps-3.5 pointer-events-none text-gray-400">
+                                    <i class="fa-solid fa-city"></i>
+                                </div>
+                                <input type="text" id="city"
+                                    class="bg-white border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-brand-500 focus:border-brand-500 block w-full ps-10 p-3"
+                                    placeholder="e.g. Cairo, Alexandria, Giza" required />
+                            </div>
+                        </div>
+
+                        <!-- Street Address -->
+                        <div>
+                            <label for="address" class="block mb-2 text-sm font-medium text-gray-900">
+                                Street Address <span class="text-red-500">*</span>
+                            </label>
+                            <div class="relative">
+                                <div
+                                    class="absolute top-3.5 start-0 flex items-center ps-3.5 pointer-events-none text-gray-400">
+                                    <i class="fa-solid fa-location-dot"></i>
+                                </div>
+                                <textarea id="address" rows="3"
+                                    class="bg-white border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-brand-500 focus:border-brand-500 block w-full ps-10 p-3"
+                                    placeholder="Street name, building number, floor, apartment..." required></textarea>
+                            </div>
+                        </div>
+
+                        <!-- Phone Number -->
+                        <div>
+                            <label for="phone" class="block mb-2 text-sm font-medium text-gray-900">
+                                Phone Number <span class="text-red-500">*</span>
+                            </label>
+                            <div class="relative">
+                                <div
+                                    class="absolute inset-y-0 start-0 flex items-center ps-3.5 pointer-events-none text-gray-400">
+                                    <i class="fa-solid fa-phone"></i>
+                                </div>
+                                <input type="tel" id="phone"
+                                    class="bg-white border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-brand-500 focus:border-brand-500 block w-full ps-10 p-3"
+                                    placeholder="01xxxxxxxxx" required />
+                                <div class="absolute inset-y-0 end-0 flex items-center pe-3 pointer-events-none">
+                                    <span class="text-xs text-gray-400 hidden sm:block">Egyptian numbers only</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Payment Method -->
+                        <div class="pt-5 border-t border-gray-100">
+                            <div class="mb-4">
+                                <h2 class="text-lg font-bold text-gray-900 flex items-center gap-2">
+                                    <i class="fa-solid fa-credit-card text-brand-600"></i>
+                                    Payment Method
+                                </h2>
+                                <p class="text-sm text-gray-500 mt-1">
+                                    Choose your preferred payment method
+                                </p>
+                            </div>
+
+                            <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+
+                                <!-- Visa / Mastercard -->
+                                <label class="cursor-pointer">
+                                    <input type="radio" name="paymentMethod" value="card" class="peer sr-only"
+                                        required />
+
+                                    <div
+                                        class="h-full min-h-28 flex flex-col items-center justify-center gap-3 rounded-xl border-2 border-gray-200 bg-white p-4 transition-all hover:border-green-400 hover:bg-green-50 peer-checked:border-[#1a8a44] peer-checked:bg-green-50 peer-checked:ring-2 peer-checked:ring-green-100">
+                                        <div class="flex items-center gap-3 text-3xl">
+                                            <i class="fa-brands fa-cc-visa text-blue-800"></i>
+                                            <i class="fa-brands fa-cc-mastercard text-red-500"></i>
+                                        </div>
+                                        <span class="font-semibold text-gray-800">Credit / Debit Card</span>
+                                        <span class="text-xs text-gray-500">Visa, Mastercard</span>
+                                        <i
+                                            class="fa-solid fa-circle-check text-[#1a8a44] hidden peer-checked:block"></i>
+                                    </div>
+                                </label>
+
+                                <!-- Cash on Delivery -->
+                                <label class="cursor-pointer">
+                                    <input type="radio" name="paymentMethod" value="cash" class="peer sr-only" />
+
+                                    <div
+                                        class="h-full min-h-28 flex flex-col items-center justify-center gap-3 rounded-xl border-2 border-gray-200 bg-white p-4 transition-all hover:border-green-400 hover:bg-green-50 peer-checked:border-[#1a8a44] peer-checked:bg-green-50 peer-checked:ring-2 peer-checked:ring-green-100">
+                                        <i class="fa-solid fa-money-bill-wave text-3xl text-[#1a8a44]"></i>
+                                        <span class="font-semibold text-gray-800">Cash on Delivery</span>
+                                        <span class="text-xs text-gray-500">Pay when you receive</span>
+                                    </div>
+                                </label>
+
+                                <!-- Mobile Wallet -->
+                                <label class="cursor-pointer">
+                                    <input type="radio" name="paymentMethod" value="wallet" class="peer sr-only" />
+
+                                    <div
+                                        class="h-full min-h-28 flex flex-col items-center justify-center gap-3 rounded-xl border-2 border-gray-200 bg-white p-4 transition-all hover:border-green-400 hover:bg-green-50 peer-checked:border-[#1a8a44] peer-checked:bg-green-50 peer-checked:ring-2 peer-checked:ring-green-100">
+                                        <i class="fa-solid fa-mobile-screen-button text-3xl text-purple-600"></i>
+                                        <span class="font-semibold text-gray-800">Mobile Wallet</span>
+                                        <span class="text-xs text-gray-500">Vodafone Cash & more</span>
+                                    </div>
+                                </label>
+
+                            </div>
+                        </div>
+
+                        <!-- Submit Button -->
+                        <button type="submit"
+                            class="group cursor-pointer relative flex w-full items-center justify-center gap-2 rounded-xl bg-[#1a8a44] px-6 py-3.5 text-lg font-bold text-white shadow-lg transition-all duration-300 hover:bg-[#157339] hover:shadow-xl focus:ring-4 focus:ring-green-300 active:scale-[0.98]">
+                            <i class="fa-solid fa-shield-halved transition-transform group-hover:scale-110"></i>
+                            <span>Proceed to Payment</span>
+                            <i class="fa-solid fa-arrow-right-long transition-transform group-hover:translate-x-1"></i>
+                        </button>
+
+                        <!-- Security Note -->
+                        <p class="flex items-center justify-center gap-2 text-xs text-gray-500">
+                            <i class="fa-solid fa-lock text-[#1a8a44]"></i>
+                            Your information is safe and secure
+                        </p>
+
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+```
