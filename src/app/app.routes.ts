@@ -67,6 +67,12 @@ export const routes: Routes = [
             import('./features/forgt-password/forgt-password.component').then(c => c.ForgtPasswordComponent)
     },
     {
+        path: 'allorders',
+        title: 'AldoraCart | Orders ',
+        loadComponent: () =>
+            import('./features/allorders/allorders.component').then(c => c.AllordersComponent)
+    },
+    {
         path: '**',
         title: 'AldoraCart | Page Not Found',
         loadComponent: () =>

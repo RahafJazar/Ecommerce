@@ -1,4 +1,3 @@
-```html
 <section>
     <div class="max-w-6xl py-10 mx-auto">
         <!-- Header Information -->
@@ -13,7 +12,7 @@
                 <p class="text-gray-500 mt-1">Review your items and complete your purchase</p>
             </div>
 
-            <a href="#"
+            <a routerLink="/cart"
                 class="text-brand-600 hover:text-brand-800 font-medium flex items-center gap-2 transition-colors">
                 <i class="fa-solid fa-arrow-left-long"></i>
                 Back to Cart
@@ -24,61 +23,141 @@
         <div class="space-y-6">
             <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
                 <div class="p-6">
-                    <form class="space-y-6">
-
-                        <!-- City -->
-                        <div>
-                            <label for="city" class="block mb-2 text-sm font-medium text-gray-900">
-                                City <span class="text-red-500">*</span>
-                            </label>
-                            <div class="relative">
-                                <div
-                                    class="absolute inset-y-0 start-0 flex items-center ps-3.5 pointer-events-none text-gray-400">
-                                    <i class="fa-solid fa-city"></i>
-                                </div>
-                                <input type="text" id="city"
-                                    class="bg-white border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-brand-500 focus:border-brand-500 block w-full ps-10 p-3"
-                                    placeholder="e.g. Cairo, Alexandria, Giza" required />
-                            </div>
-                        </div>
-
-                        <!-- Street Address -->
-                        <div>
-                            <label for="address" class="block mb-2 text-sm font-medium text-gray-900">
-                                Street Address <span class="text-red-500">*</span>
-                            </label>
-                            <div class="relative">
-                                <div
-                                    class="absolute top-3.5 start-0 flex items-center ps-3.5 pointer-events-none text-gray-400">
-                                    <i class="fa-solid fa-location-dot"></i>
-                                </div>
-                                <textarea id="address" rows="3"
-                                    class="bg-white border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-brand-500 focus:border-brand-500 block w-full ps-10 p-3"
-                                    placeholder="Street name, building number, floor, apartment..." required></textarea>
-                            </div>
-                        </div>
-
-                        <!-- Phone Number -->
-                        <div>
-                            <label for="phone" class="block mb-2 text-sm font-medium text-gray-900">
-                                Phone Number <span class="text-red-500">*</span>
-                            </label>
-                            <div class="relative">
-                                <div
-                                    class="absolute inset-y-0 start-0 flex items-center ps-3.5 pointer-events-none text-gray-400">
-                                    <i class="fa-solid fa-phone"></i>
-                                </div>
-                                <input type="tel" id="phone"
-                                    class="bg-white border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-brand-500 focus:border-brand-500 block w-full ps-10 p-3"
-                                    placeholder="01xxxxxxxxx" required />
-                                <div class="absolute inset-y-0 end-0 flex items-center pe-3 pointer-events-none">
-                                    <span class="text-xs text-gray-400 hidden sm:block">Egyptian numbers only</span>
+                    <form class="space-y-6 group" [formGroup]="checkOutform()" (ngSubmit)="submitForm()">
+                        <div formGroupName="shippingAddress">
+                            <!-- City -->
+                            @let cityControl= checkOutform()?.get('shippingAddress.city');
+                            <div>
+                                <label for="city" class="block mb-2 text-sm font-medium text-gray-900">
+                                    City <span class="text-red-500">*</span>
+                                </label>
+                                <div class="relative">
+                                    <div
+                                        class="absolute inset-y-0 start-0 flex items-center ps-3.5 pointer-events-none text-gray-400">
+                                        <i class="fa-solid fa-city"></i>
+                                    </div>
+                                    <input type="text" id="city" formControlName="city"
+                                        class="bg-white border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-brand-500 focus:border-brand-500 block w-full ps-10 p-3"
+                                        placeholder="e.g. Cairo, Alexandria, Giza" required />
                                 </div>
                             </div>
+                            @if (cityControl?.invalid && cityControl?.touched) {
+                            <!---name alert-->
+                            <div class="flex items-start sm:items-center p-4 mb-4 text-sm text-fg-danger-strong rounded-base bg-danger-soft border border-danger-subtle"
+                                role="alert">
+                                <svg class="w-4 h-4 me-2 shrink-0 mt-0.5 sm:mt-0" aria-hidden="true"
+                                    xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none"
+                                    viewBox="0 0 24 24">
+                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                        stroke-width="2"
+                                        d="M10 11h2v5m-2 0h4m-2.592-8.5h.01M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                                </svg>
+
+
+                                @if (cityControl?.hasError('required')) {
+                                <span class="font-medium me-1"> street details is Required</span>
+                                }
+
+
+                            </div>
+                            }
+
+
+                            <!-- Street Address -->
+                            <div>
+                                @let streetControl = checkOutform()?.get('shippingAddress.details');
+                                <div>
+                                    <label for="address" class="block mb-2 text-sm font-medium text-gray-900">
+                                        Street Address <span class="text-red-500">*</span>
+                                    </label>
+                                    <div class="relative">
+                                        <div
+                                            class="absolute top-3.5 start-0 flex items-center ps-3.5 pointer-events-none text-gray-400">
+                                            <i class="fa-solid fa-location-dot"></i>
+                                        </div>
+                                        <textarea id="address" rows="3" formControlName="details"
+                                            class="bg-white border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-brand-500 focus:border-brand-500 block w-full ps-10 p-3"
+                                            placeholder="Street name, building number, floor, apartment..."
+                                            required></textarea>
+                                    </div>
+                                </div>
+                                @if (streetControl?.invalid && streetControl?.touched) {
+                                <!---name alert-->
+                                <div class="flex items-start sm:items-center p-4 mb-4 text-sm text-fg-danger-strong rounded-base bg-danger-soft border border-danger-subtle"
+                                    role="alert">
+                                    <svg class="w-4 h-4 me-2 shrink-0 mt-0.5 sm:mt-0" aria-hidden="true"
+                                        xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none"
+                                        viewBox="0 0 24 24">
+                                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                            stroke-width="2"
+                                            d="M10 11h2v5m-2 0h4m-2.592-8.5h.01M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                                    </svg>
+
+
+                                    @if (streetControl?.hasError('required')) {
+                                    <span class="font-medium me-1"> street details is Required</span>
+                                    }
+
+
+                                </div>
+                                }
+                            </div>
+
+
+
+
+
+                            <!-- Phone Number -->
+                            <div>
+                                @let phonecontrol = checkOutform()?.get('shippingAddress.phone');
+                                <div>
+                                    <label for="phone" class="block mb-2 text-sm font-medium text-gray-900">
+                                        Phone Number <span class="text-red-500">*</span>
+                                    </label>
+                                    <div class="relative">
+                                        <div
+                                            class="absolute inset-y-0 start-0 flex items-center ps-3.5 pointer-events-none text-gray-400">
+                                            <i class="fa-solid fa-phone"></i>
+                                        </div>
+                                        <input type="tel" id="phone" formControlName="phone"
+                                            class="bg-white border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-brand-500 focus:border-brand-500 block w-full ps-10 p-3"
+                                            placeholder="01xxxxxxxxx" required />
+                                        <div
+                                            class="absolute inset-y-0 end-0 flex items-center pe-3 pointer-events-none">
+                                            <span class="text-xs text-gray-400 hidden sm:block">Egyptian numbers
+                                                only</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                @if (phonecontrol?.invalid && phonecontrol?.touched) {
+                                <!-- Phone Alert -->
+                                <div class="flex items-start sm:items-center p-4 mb-4 text-sm text-fg-danger-strong rounded-base bg-danger-soft border border-danger-subtle"
+                                    role="alert">
+                                    <svg class="w-4 h-4 me-2 shrink-0 mt-0.5 sm:mt-0" aria-hidden="true"
+                                        xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none"
+                                        viewBox="0 0 24 24">
+                                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                            stroke-width="2"
+                                            d="M10 11h2v5m-2 0h4m-2.592-8.5h.01M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                                    </svg>
+                                    @if (phonecontrol?.hasError('required')) {
+                                    <span class="font-medium me-1"> Phone is Required</span>
+                                    }
+                                    @else if (phonecontrol?.hasError('pattern')) {
+                                    <span class="font-medium me-1"> Please enter valid egyption number </span>
+                                    }
+                                </div>
+                                }
+                            </div>
+
                         </div>
+
+
+
+
 
                         <!-- Payment Method -->
-                        <div class="pt-5 border-t border-gray-100">
+                        <div class="pt-5 border-t border-gray-100 ">
                             <div class="mb-4">
                                 <h2 class="text-lg font-bold text-gray-900 flex items-center gap-2">
                                     <i class="fa-solid fa-credit-card text-brand-600"></i>
@@ -89,12 +168,12 @@
                                 </p>
                             </div>
 
-                            <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                            <div class="  grid grid-cols-1 sm:grid-cols-2 gap-4">
 
                                 <!-- Visa / Mastercard -->
-                                <label class="cursor-pointer">
-                                    <input type="radio" name="paymentMethod" value="card" class="peer sr-only"
-                                        required />
+                                <label class="  cursor-pointer">
+                                    <input type="radio" #visa_pay name="paymentMethod" value="visa" class="peer sr-only"
+                                        (change)="  changePaymentMethod(visa_pay)" id="visaPayment" required />
 
                                     <div
                                         class="h-full min-h-28 flex flex-col items-center justify-center gap-3 rounded-xl border-2 border-gray-200 bg-white p-4 transition-all hover:border-green-400 hover:bg-green-50 peer-checked:border-[#1a8a44] peer-checked:bg-green-50 peer-checked:ring-2 peer-checked:ring-green-100">
@@ -111,7 +190,8 @@
 
                                 <!-- Cash on Delivery -->
                                 <label class="cursor-pointer">
-                                    <input type="radio" name="paymentMethod" value="cash" class="peer sr-only" />
+                                    <input type="radio" name="paymentMethod" value="cash" class="peer sr-only" #cash_pay
+                                        (change)="  changePaymentMethod(cash_pay)" id="cashPayment" />
 
                                     <div
                                         class="h-full min-h-28 flex flex-col items-center justify-center gap-3 rounded-xl border-2 border-gray-200 bg-white p-4 transition-all hover:border-green-400 hover:bg-green-50 peer-checked:border-[#1a8a44] peer-checked:bg-green-50 peer-checked:ring-2 peer-checked:ring-green-100">
@@ -122,7 +202,7 @@
                                 </label>
 
                                 <!-- Mobile Wallet -->
-                                <label class="cursor-pointer">
+                                <!-- <label class="cursor-pointer">
                                     <input type="radio" name="paymentMethod" value="wallet" class="peer sr-only" />
 
                                     <div
@@ -131,18 +211,34 @@
                                         <span class="font-semibold text-gray-800">Mobile Wallet</span>
                                         <span class="text-xs text-gray-500">Vodafone Cash & more</span>
                                     </div>
-                                </label>
+                                </label> -->
 
                             </div>
                         </div>
 
+
+
                         <!-- Submit Button -->
                         <button type="submit"
-                            class="group cursor-pointer relative flex w-full items-center justify-center gap-2 rounded-xl bg-[#1a8a44] px-6 py-3.5 text-lg font-bold text-white shadow-lg transition-all duration-300 hover:bg-[#157339] hover:shadow-xl focus:ring-4 focus:ring-green-300 active:scale-[0.98]">
-                            <i class="fa-solid fa-shield-halved transition-transform group-hover:scale-110"></i>
+                            class="  hidden not-even:   cursor-pointer relative   w-full items-center justify-center gap-2 rounded-xl bg-[#1a8a44] px-6 py-3.5 text-lg font-bold text-white shadow-lg transition-all duration-300 hover:bg-[#157339] hover:shadow-xl focus:ring-4 focus:ring-green-300 active:scale-[0.98] group-has-[#visaPayment:checked]:flex">
+
+                            <i class="fa-solid fa-shield-halved transition-transform group-hover:scale-110 "></i>
                             <span>Proceed to Payment</span>
                             <i class="fa-solid fa-arrow-right-long transition-transform group-hover:translate-x-1"></i>
                         </button>
+
+                        <button type="submit"
+                            class="  hidden cursor-pointer relative   w-full items-center justify-center gap-2 rounded-xl bg-[#1a8a44] px-6 py-3.5 text-lg font-bold text-white shadow-lg transition-all duration-300 hover:bg-[#157339] hover:shadow-xl focus:ring-4 focus:ring-green-300 active:scale-[0.98] group-has-[#cashPayment:checked]:flex">
+
+                            <i class="fa-solid  fa-globe-asia transition-transform group-hover:scale-110"></i>
+                            <span>Place Order</span>
+                            <i class="fa-solid fa-arrow-right-long transition-transform group-hover:translate-x-1"></i>
+                        </button>
+
+
+
+
+
 
                         <!-- Security Note -->
                         <p class="flex items-center justify-center gap-2 text-xs text-gray-500">
