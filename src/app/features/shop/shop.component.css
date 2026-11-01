@@ -1,0 +1,21 @@
+  .my-pagination ::ng-deep .ngx-pagination {
+      margin-block: 1rem;
+      text-align: center;
+  }
+
+  .my-pagination ::ng-deep .ngx-pagination .current {
+      background: var(--color-secondary);
+      padding: 0.3rem;
+      border-radius: 2rem;
+
+  }
+
+  .my-pagination ::ng-deep .ngx-pagination .pagination-previous {
+      font-weight: bold;
+
+  }
+
+  .my-pagination ::ng-deep .ngx-pagination .pagination-next {
+      font-weight: bold;
+
+  }

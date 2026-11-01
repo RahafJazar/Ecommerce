@@ -8,9 +8,10 @@ import { CartService } from '../../../../core/services/cart/cart.service';
 import { concat } from 'rxjs';
 import { ToastrService } from 'ngx-toastr';
 import { platform } from 'process';
+import { CardComponent } from '../../../../shared/ui/card/card.component';
 
 @Component({
-  imports: [CurrencyPipe, RouterLink],
+  imports: [CurrencyPipe, RouterLink, CardComponent],
   selector: 'app-popular-products',
   styleUrl: './popular-products.component.css',
   templateUrl: './popular-products.component.html',
@@ -19,10 +20,7 @@ export class PopularProductsComponent implements OnInit {
 
 
   private readonly productsService = inject(ProductsService);
-  private readonly cartService = inject(CartService);
-  private readonly toastrService = inject(ToastrService);
-  private readonly platform = inject(PLATFORM_ID);
-  private readonly router = inject(Router);
+
   ngOnInit(): void {
     this.getAllProductsData();
   }
@@ -37,39 +35,5 @@ export class PopularProductsComponent implements OnInit {
   }
 
 
-  addProductItemToYourCart(productId: string): void {
-    if (isPlatformBrowser(this.platform)) {
-      const token = localStorage.getItem('freshToken');
-      if (token) {
-        this.cartService.addProductToCart(productId).subscribe({
-          next: (resp) => {
-            if (resp.status === "success") {
-              //display toast message 
-              this.toastrService.success(resp.message, 'AldoraCart', {
-                closeButton: true,
-                progressBar: true,
-                progressAnimation: 'decreasing',
-                timeOut: 2000
 
-              })
-              console.log("add cart: \n", resp);
-              this.router.navigate(['/cart'])
-            }
-
-          }
-        })
-      }
-      else {
-        //show warning toastr to login 
-        this.toastrService.warning('Please Login to continue', 'AldoraCart', {
-          closeButton: true,
-          progressBar: true,
-          progressAnimation: 'decreasing',
-          timeOut: 2000
-
-        })
-      }
-    }
-
-  }
 }

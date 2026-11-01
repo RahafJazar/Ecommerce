@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { inject, Service } from '@angular/core';
+import { inject, Service, signal, WritableSignal } from '@angular/core';
 import { environment } from '../../../../environments/environment';
 import { Observable } from 'rxjs';
 import { CartDataResponse } from '../../models/cart-data.interface';
@@ -7,7 +7,7 @@ import { CartDataResponse } from '../../models/cart-data.interface';
 @Service()
 export class CartService {
     private readonly httpClient = inject(HttpClient);
-
+    cartCount: WritableSignal<number> = signal<number>(0)
     addProductToCart(productId: string): Observable<CartDataResponse> {
         return this.httpClient.post<CartDataResponse>(`${environment.base_url}/api/v2/cart`, {
             "productId": productId

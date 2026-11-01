@@ -8,8 +8,8 @@ import { Product } from '../../models/product.interface';
 export class ProductsService {
     private readonly httpClient = inject(HttpClient);
 
-    getAllProducts(): Observable<PaginatedResponse<Product>> {
-        return this.httpClient.get<PaginatedResponse<Product>>(`${environment.base_url}/api/v1/products`)
+    getAllProducts(page: number = 1, limit: number = 10): Observable<PaginatedResponse<Product>> {
+        return this.httpClient.get<PaginatedResponse<Product>>(`${environment.base_url}/api/v1/products?page=${page}&limit=${limit}`)
     }
 
     getSpercificProduct(productId: string | null): Observable<ApiResponse<Product>> {

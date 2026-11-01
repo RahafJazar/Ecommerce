@@ -1,4 +1,4 @@
-import { Component, inject, OnInit, PLATFORM_ID, signal, WritableSignal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, OnInit, PLATFORM_ID, signal, WritableSignal } from '@angular/core';
 import { CartService } from '../../core/services/cart/cart.service';
 import { CartData, CartDataResponse } from '../../core/models/cart-data.interface';
 import { CurrencyPipe, isPlatformBrowser } from '@angular/common';
@@ -10,6 +10,7 @@ import { ToastrService } from 'ngx-toastr';
   selector: 'app-cart',
   styleUrl: './cart.component.css',
   templateUrl: './cart.component.html',
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CartComponent implements OnInit {
   private readonly cartService = inject(CartService);
@@ -52,7 +53,10 @@ export class CartComponent implements OnInit {
             progressAnimation: 'decreasing'
           })
           //update all products
-          this.cartDetailsData.set(resp.data)
+          this.cartDetailsData.set(resp.data);
+          //update cart count on navbar
+          const count_ = resp.data.products.reduce((total, curr) => total + curr.count, 0)
+          this.cartService.cartCount.set(count_)
         }
 
       }
@@ -62,7 +66,9 @@ export class CartComponent implements OnInit {
     this.cartService.clearUserCart().subscribe({
       next: (resp) => {
         if (resp.status === "success") {
-          this.cartDetailsData.set(resp.data)
+          this.cartDetailsData.set(resp.data);
+          //update cart count on navbar
+          this.cartService.cartCount.set(resp.numOfCartItems)
         }
       }
     })
@@ -72,10 +78,17 @@ export class CartComponent implements OnInit {
     this.cartService.updateProductQuantity(count, productId).subscribe({
       next: (resp) => {
         if (resp.status === "success") {
-          this.cartDetailsData.set(resp.data)
+          this.cartDetailsData.set(resp.data);
+
+
+          //update cart count on navbar
+          const count_ = resp.data.products.reduce((total, curr) => total + curr.count, 0)
+          this.cartService.cartCount.set(count_)
         }
 
       }
     })
+
+
   }
 }

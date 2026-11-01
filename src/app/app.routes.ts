@@ -22,6 +22,12 @@ export const routes: Routes = [
             import('./features/brands/brands.component').then(c => c.BrandsComponent)
     },
     {
+        path: 'shop',
+        title: 'AldoraCart | Shop',
+        loadComponent: () =>
+            import('./features/shop/shop.component').then(c => c.ShopComponent)
+    },
+    {
         path: 'details/:slug/:id',
         title: 'AldoraCart | Details',
         loadComponent: () =>
