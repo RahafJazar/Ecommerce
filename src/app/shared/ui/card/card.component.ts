@@ -4,6 +4,7 @@ import { Router, RouterLink, RouterLinkActive } from '@angular/router';
 import { CurrencyPipe, isPlatformBrowser } from '@angular/common';
 import { ToastrService } from 'ngx-toastr';
 import { CartService } from '../../../core/services/cart/cart.service';
+import { WishlistService } from '../../../core/services/whishlist/wishlist.service';
 
 @Component({
   imports: [RouterLink, CurrencyPipe],
@@ -13,6 +14,7 @@ import { CartService } from '../../../core/services/cart/cart.service';
 })
 export class CardComponent {
   private readonly cartService = inject(CartService);
+  private readonly wishlistService = inject(WishlistService);
   private readonly toastrService = inject(ToastrService);
   private readonly platform = inject(PLATFORM_ID);
   private readonly router = inject(Router);
@@ -54,5 +56,45 @@ export class CardComponent {
       }
     }
 
+  }
+
+  addProductToWishList(productId: string): void {
+    if (isPlatformBrowser(this.platform)) {
+      const token = localStorage.getItem('freshToken');
+      if (token) {
+        const bodyRequest = {
+          "productId": productId
+        }
+        this.wishlistService.addProductToWishList(bodyRequest).subscribe({
+          next: (resp) => {
+            if (resp.status === "success") {
+              //display toast message 
+              this.toastrService.success(resp.message, 'AldoraCart', {
+                closeButton: true,
+                progressBar: true,
+                progressAnimation: 'decreasing',
+                timeOut: 2000
+
+              })
+              console.log("add cart to wishlist: \n", resp);
+              this.router.navigate(['/wishlist']);
+              //update whishlist number onn navbar 
+              const count_ = resp.data.length;
+              this.wishlistService.whishlistCount.set(count_)
+            }
+          }
+        })
+      }
+      else {
+        //show warning toastr to login 
+        this.toastrService.warning('Please Login to continue', 'AldoraCart', {
+          closeButton: true,
+          progressBar: true,
+          progressAnimation: 'decreasing',
+          timeOut: 2000
+
+        })
+      }
+    }
   }
 }

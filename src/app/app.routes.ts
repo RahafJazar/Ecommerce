@@ -15,6 +15,7 @@ export const routes: Routes = [
         loadComponent: () =>
             import('./features/categories/categories.component').then(c => c.CategoriesComponent)
     },
+
     {
         path: 'brands',
         title: 'AldoraCart | Brands',
@@ -24,6 +25,12 @@ export const routes: Routes = [
     {
         path: 'shop',
         title: 'AldoraCart | Shop',
+        loadComponent: () =>
+            import('./features/shop/shop.component').then(c => c.ShopComponent)
+    },
+    {
+        path: 'shop/:categoryId',
+        title: 'AldoraCart | Shop ',
         loadComponent: () =>
             import('./features/shop/shop.component').then(c => c.ShopComponent)
     },

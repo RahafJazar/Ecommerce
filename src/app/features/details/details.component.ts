@@ -1,11 +1,12 @@
 import { Component, inject, OnInit, signal, WritableSignal } from '@angular/core';
 import { ProductsService } from '../../core/services/products/products.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { Product } from '../../core/models/product.interface';
-import { CurrencyPipe } from '@angular/common';
+import { CurrencyPipe, Location } from '@angular/common';
+
 
 @Component({
-  imports: [CurrencyPipe],
+  imports: [CurrencyPipe, RouterLink],
   selector: 'app-details',
   styleUrl: './details.component.css',
   templateUrl: './details.component.html',
@@ -14,6 +15,8 @@ export class DetailsComponent implements OnInit {
 
   private readonly productsService = inject(ProductsService);
   private readonly activatedRoute = inject(ActivatedRoute);
+  private readonly router = inject(Router);
+  private readonly location = inject(Location);
   productId: WritableSignal<string | null> = signal<string | null>('');
   productData: WritableSignal<Product | null> = signal<Product | null>(null);
   ngOnInit(): void {
@@ -34,4 +37,13 @@ export class DetailsComponent implements OnInit {
       }
     })
   }
+  getBack(): void {
+
+    if (this.router.lastSuccessfulNavigation()?.previousNavigation) {
+      this.location.back();
+    } else {
+      this.router.navigate(['/shop']);
+    }
+  }
+
 }

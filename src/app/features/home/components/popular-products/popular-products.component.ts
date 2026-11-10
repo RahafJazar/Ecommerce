@@ -1,13 +1,8 @@
-import { Component, inject, Inject, OnInit, PLATFORM_ID, signal, WritableSignal } from '@angular/core';
-import { ProductsService } from '../../../../core/services/products/products.service';
+import { CurrencyPipe } from '@angular/common';
+import { Component, inject, OnInit, signal, WritableSignal } from '@angular/core';
+import { RouterLink } from "@angular/router";
 import { Product } from '../../../../core/models/product.interface';
-import { sign } from 'crypto';
-import { CurrencyPipe, isPlatformBrowser } from '@angular/common';
-import { Router, RouterLink } from "@angular/router";
-import { CartService } from '../../../../core/services/cart/cart.service';
-import { concat } from 'rxjs';
-import { ToastrService } from 'ngx-toastr';
-import { platform } from 'process';
+import { ProductsService } from '../../../../core/services/products/products.service';
 import { CardComponent } from '../../../../shared/ui/card/card.component';
 
 @Component({

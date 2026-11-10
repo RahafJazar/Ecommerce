@@ -16,4 +16,8 @@ export class ProductsService {
         return this.httpClient.get<ApiResponse<Product>>(`${environment.base_url}/api/v1/products/${productId}`)
     }
 
+    getProductsDependOnCategory(categoryId: string | null, page: number = 1, limit: number = 10): Observable<PaginatedResponse<Product>> {
+        return this.httpClient.get<PaginatedResponse<Product>>(`${environment.base_url}/api/v1/products?category=${categoryId}&page=${page}&limit=${limit}`)
+    }
+
 }

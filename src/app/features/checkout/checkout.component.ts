@@ -1,8 +1,6 @@
-import { Component, inject, OnInit, signal, WritableSignal, input } from '@angular/core';
+import { Component, inject, OnInit, signal, WritableSignal } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
-import { sign } from 'node:crypto';
-import { validateHeaderValue } from 'node:http';
 import { PaymentService } from '../../core/services/payment/payment.service';
 
 @Component({

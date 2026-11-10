@@ -25,3 +25,9 @@
 body {
     font-family: 'Exo', sans-serif;
 }
+
+@layer components {
+    .btn-back {
+        @apply mb-4 inline-flex cursor-pointer items-center gap-2 rounded-full border border-slate-200 bg-white px-4 py-2 font-semibold text-slate-600 shadow-sm hover:border-emerald-200 hover:bg-emerald-50 hover:text-emerald-700 transition duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500;
+    }
+}

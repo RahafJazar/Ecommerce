@@ -1,11 +1,13 @@
-import { Component, computed, inject, OnChanges, OnInit, PLATFORM_ID, Signal, SimpleChanges } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
+import { Component, computed, effect, inject, OnInit, PLATFORM_ID, signal, Signal, WritableSignal } from '@angular/core';
 import { Router, RouterLink, RouterLinkActive } from '@angular/router';
 import { initFlowbite } from 'flowbite';
-import { FlowbiteService } from '../../../core/services/flowbite/flowbite.service';
 import { AuthService } from '../../../core/auth/services/auth.service';
-import { isPlatformBrowser, PlatformLocation } from '@angular/common';
-import { fail } from 'assert';
 import { CartService } from '../../../core/services/cart/cart.service';
+import { FlowbiteService } from '../../../core/services/flowbite/flowbite.service';
+import { CategoriesService } from '../../../core/services/categories/categories.service';
+import { Category } from '../../../core/models/category.interface';
+import { WishlistService } from '../../../core/services/whishlist/wishlist.service';
 
 @Component({
   imports: [RouterLink, RouterLinkActive],
@@ -20,16 +22,33 @@ export class NavbarComponent implements OnInit {
   private readonly authService = inject(AuthService);
   private readonly router = inject(Router);
   private readonly cartService = inject(CartService);
+  private readonly wishlistService = inject(WishlistService);
+  private readonly categoriesService = inject(CategoriesService)
   cart_count: Signal<number> = computed(() => this.cartService.cartCount());
-
+  whishlist_count: Signal<number> = computed(() => this.wishlistService.whishlistCount())
+  categories: WritableSignal<Category[]> = signal<Category[]>([]);
 
   //inject PLATFORM_ID
   private platform = inject(PLATFORM_ID)
   //always listen 
   isLogged: Signal<boolean> = computed(() => this.authService.isLogged());
+  constructor() {
+    effect(() => {
+      if (isPlatformBrowser(this.platform) && this.isLogged()) {
+        this.getCartCount();
+        this.getWhishlistCount();
+
+      } else {
+        this.cartService.cartCount.set(0)
+        this.wishlistService.whishlistCount.set(0)
+      }
+    })
+  }
+
   ngOnInit(): void {
     this.checkUserToken()
     this.flowbiteInit()
+    this.getCategories()
 
   }
 
@@ -46,6 +65,7 @@ export class NavbarComponent implements OnInit {
       if (token) {
         this.authService.isLogged.set(true)
         this.getCartCount();
+        this.getWhishlistCount();
       }
       else {
         this.authService.isLogged.set(false)
@@ -63,6 +83,25 @@ export class NavbarComponent implements OnInit {
       next: (resp) => {
         const count_ = resp.data.products.reduce((prev, curr) => prev + curr.count, 0)
         this.cartService.cartCount.set(count_);
+      }
+    })
+  }
+  getWhishlistCount(): void {
+
+    this.wishlistService.getUserLoggedWishlist().subscribe({
+      next: (resp) => {
+        const count_ = resp.count;
+        this.wishlistService.whishlistCount.set(count_);
+      }
+    })
+  }
+
+  getCategories(): void {
+    this.categoriesService.getAllCategories().subscribe({
+      next: (resp) => {
+        if (resp.data) {
+          this.categories.set(resp.data);
+        }
       }
     })
   }
