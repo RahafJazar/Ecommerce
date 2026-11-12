@@ -9,6 +9,8 @@ import { provideToastr } from 'ngx-toastr';
 import { errorsInterceptor } from './core/interceptors/errors/errors.interceptor';
 import { loadingInterceptor } from './core/interceptors/loading/loading.interceptor';
 import { headersInterceptor } from './core/interceptors/headers/headers.interceptor';
+import { provideTranslateHttpLoader } from "@ngx-translate/http-loader";
+import { provideTranslateService } from "@ngx-translate/core";
 export const appConfig: ApplicationConfig = {
   providers: [
     provideBrowserGlobalErrorListeners(),
@@ -16,7 +18,15 @@ export const appConfig: ApplicationConfig = {
     provideClientHydration(),
     provideHttpClient(withInterceptors([errorsInterceptor, loadingInterceptor, headersInterceptor])),
     provideToastr(),
-    importProvidersFrom(NgxSpinnerModule)
+    importProvidersFrom(NgxSpinnerModule),
+    provideTranslateService({
+      loader: provideTranslateHttpLoader({
+        prefix: '/assets/i18n/',
+        suffix: '.json'
+      }),
+      fallbackLang: 'en',
+      lang: 'en'
+    })
 
   ]
 };
