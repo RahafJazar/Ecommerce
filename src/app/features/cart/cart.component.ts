@@ -45,13 +45,16 @@ export class CartComponent implements OnInit {
       next: (resp) => {
 
         if (resp.status === "success") {
-          //toastr 
-          this.toastrService.success(`Product ${productId} removed successfully `, 'AldoraCart', {
-            closeButton: true,
-            timeOut: 2000,
-            progressBar: true,
-            progressAnimation: 'decreasing'
-          })
+          if (isPlatformBrowser(this.platform)) {
+            //toastr 
+            this.toastrService.success(`Product ${productId} removed successfully `, 'AldoraCart', {
+              closeButton: true,
+              timeOut: 2000,
+              progressBar: true,
+              progressAnimation: 'decreasing'
+            })
+          }
+
           //update all products
           this.cartDetailsData.set(resp.data);
           //update cart count on navbar

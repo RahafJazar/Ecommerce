@@ -25,7 +25,7 @@ export class NavbarComponent implements OnInit {
   private readonly wishlistService = inject(WishlistService);
   private readonly categoriesService = inject(CategoriesService)
   cart_count: Signal<number> = computed(() => this.cartService.cartCount());
-  whishlist_count: Signal<number> = computed(() => this.wishlistService.whishlistCount())
+  whishlist_count: Signal<number> = computed(() => this.wishlistService.wishlistProductIds().length)
   categories: WritableSignal<Category[]> = signal<Category[]>([]);
 
   //inject PLATFORM_ID
@@ -40,7 +40,7 @@ export class NavbarComponent implements OnInit {
 
       } else {
         this.cartService.cartCount.set(0)
-        this.wishlistService.whishlistCount.set(0)
+        this.wishlistService.wishlistProductIds.set([]);
       }
     })
   }
@@ -90,8 +90,8 @@ export class NavbarComponent implements OnInit {
 
     this.wishlistService.getUserLoggedWishlist().subscribe({
       next: (resp) => {
-        const count_ = resp.count;
-        this.wishlistService.whishlistCount.set(count_);
+        const wishlistIds: string[] = resp.data.map(wish => wish._id);
+        this.wishlistService.wishlistProductIds.set(wishlistIds);
       }
     })
   }

@@ -1,1 +1,37 @@
-<p>brands works!</p>
+<div class="min-h-screen bg-gray-50 p-8">
+    <div class="mx-auto max-w-6xl">
+        <div class="mb-8">
+            <h1 class="text-2xl font-bold text-gray-900">Our Brands</h1>
+            <p class="mt-2 text-sm text-gray-500">
+                Explore products from your favorite brands.
+            </p>
+        </div>
+
+        <div class="grid grid-cols-2 gap-5 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5">
+
+            @for (brand of brandsList(); track brand._id) {
+            <!-- Brand Card -->
+            <div
+                class="group rounded-2xl border border-gray-100 bg-white p-5 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:border-blue-200 hover:shadow-lg">
+
+                <div class="flex h-32 items-center justify-center rounded-xl bg-gray-50 p-4">
+                    <img [src]="brand.image" [alt]="brand.name"
+                        class="h-full w-full object-contain transition-transform duration-300 group-hover:scale-110" />
+                </div>
+
+                <div class="mt-4 text-center">
+                    <h3 class="text-base font-semibold text-gray-800">
+                        {{brand.name}}
+                    </h3>
+
+                    <p class="mt-1 text-xs text-gray-400">
+                        {{brand.slug}}
+                    </p>
+                </div>
+
+            </div>
+            }
+
+        </div>
+    </div>
+</div>

@@ -4,6 +4,7 @@ import { RouterLink } from "@angular/router";
 import { Product } from '../../../../core/models/product.interface';
 import { ProductsService } from '../../../../core/services/products/products.service';
 import { CardComponent } from '../../../../shared/ui/card/card.component';
+import { WishlistService } from '../../../../core/services/whishlist/wishlist.service';
 
 @Component({
   imports: [CurrencyPipe, RouterLink, CardComponent],
@@ -15,6 +16,7 @@ export class PopularProductsComponent implements OnInit {
 
 
   private readonly productsService = inject(ProductsService);
+  private readonly wishlistService = inject(WishlistService)
 
   ngOnInit(): void {
     this.getAllProductsData();
@@ -25,6 +27,12 @@ export class PopularProductsComponent implements OnInit {
     this.productsService.getAllProducts().subscribe({
       next: (resp) => {
         this.productsList.set(resp.data)
+        this.productsList().map((prod) => {
+          if (this.wishlistService.wishlistProductIds().includes(prod._id)) {
+            prod.isWish = true
+
+          }
+        })
       }
     })
   }

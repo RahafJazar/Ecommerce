@@ -1,10 +1,11 @@
-import { Component, inject, input, InputSignal, PLATFORM_ID } from '@angular/core';
+import { Component, computed, inject, input, InputSignal, PLATFORM_ID, signal, Signal, WritableSignal } from '@angular/core';
 import { Product } from '../../../core/models/product.interface';
 import { Router, RouterLink, RouterLinkActive } from '@angular/router';
 import { CurrencyPipe, isPlatformBrowser } from '@angular/common';
 import { ToastrService } from 'ngx-toastr';
 import { CartService } from '../../../core/services/cart/cart.service';
 import { WishlistService } from '../../../core/services/whishlist/wishlist.service';
+import { WishlistProduct } from '../../../core/models/whishlist.interface';
 
 @Component({
   imports: [RouterLink, CurrencyPipe],
@@ -19,6 +20,9 @@ export class CardComponent {
   private readonly platform = inject(PLATFORM_ID);
   private readonly router = inject(Router);
   product: InputSignal<Product> = input.required();
+
+
+
   addProductItemToYourCart(productId: string): void {
     if (isPlatformBrowser(this.platform)) {
       const token = localStorage.getItem('freshToken');
@@ -26,14 +30,17 @@ export class CardComponent {
         this.cartService.addProductToCart(productId).subscribe({
           next: (resp) => {
             if (resp.status === "success") {
-              //display toast message 
-              this.toastrService.success(resp.message, 'AldoraCart', {
-                closeButton: true,
-                progressBar: true,
-                progressAnimation: 'decreasing',
-                timeOut: 2000
+              if (isPlatformBrowser(this.platform)) {
+                //display toast message 
+                this.toastrService.success(resp.message, 'AldoraCart', {
+                  closeButton: true,
+                  progressBar: true,
+                  progressAnimation: 'decreasing',
+                  timeOut: 2000
 
-              })
+                })
+              }
+
               console.log("add cart: \n", resp);
               this.router.navigate(['/cart']);
               //update cart count on navbar
@@ -45,14 +52,20 @@ export class CardComponent {
         })
       }
       else {
-        //show warning toastr to login 
-        this.toastrService.warning('Please Login to continue', 'AldoraCart', {
-          closeButton: true,
-          progressBar: true,
-          progressAnimation: 'decreasing',
-          timeOut: 2000
+        if (isPlatformBrowser(this.platform)) {
+          if (isPlatformBrowser(this.platform)) {
+            //show warning toastr to login 
+            this.toastrService.warning('Please Login to continue', 'AldoraCart', {
+              closeButton: true,
+              progressBar: true,
+              progressAnimation: 'decreasing',
+              timeOut: 2000
 
-        })
+            })
+          }
+
+        }
+
       }
     }
 
@@ -68,6 +81,7 @@ export class CardComponent {
         this.wishlistService.addProductToWishList(bodyRequest).subscribe({
           next: (resp) => {
             if (resp.status === "success") {
+
               //display toast message 
               this.toastrService.success(resp.message, 'AldoraCart', {
                 closeButton: true,
@@ -78,22 +92,25 @@ export class CardComponent {
               })
               console.log("add cart to wishlist: \n", resp);
               this.router.navigate(['/wishlist']);
-              //update whishlist number onn navbar 
-              const count_ = resp.data.length;
-              this.wishlistService.whishlistCount.set(count_)
+              //update whishlist number on navbar 
+              this.wishlistService.wishlistProductIds.set(resp.data)
+
             }
           }
         })
       }
       else {
-        //show warning toastr to login 
-        this.toastrService.warning('Please Login to continue', 'AldoraCart', {
-          closeButton: true,
-          progressBar: true,
-          progressAnimation: 'decreasing',
-          timeOut: 2000
+        if (isPlatformBrowser(this.platform)) {
+          //show warning toastr to login 
+          this.toastrService.warning('Please Login to continue', 'AldoraCart', {
+            closeButton: true,
+            progressBar: true,
+            progressAnimation: 'decreasing',
+            timeOut: 2000
 
-        })
+          })
+        }
+
       }
     }
   }

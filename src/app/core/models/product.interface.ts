@@ -21,6 +21,8 @@ export interface Product {
     id: string;
     priceAfterDiscount?: number;
     availableColors?: unknown[];
+    //extra
+    isWish: boolean
 }
 
 export interface Subcategory {

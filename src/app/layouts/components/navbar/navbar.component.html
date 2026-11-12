@@ -96,39 +96,40 @@
 
         <!-- Actions -->
         <div class="ml-auto flex items-center gap-1 sm:gap-2 lg:ml-0">
-            <!-- Search toggle (mobile/tablet) – opens the drawer where the search lives -->
+            <!-- Search toggle (mobile/tablet) -->
             <button type="button" data-drawer-target="drawer-right" data-drawer-show="drawer-right"
                 data-drawer-placement="right" aria-label="Search products"
                 class="flex h-10 w-10 items-center justify-center rounded-full text-gray-600 transition-colors hover:bg-gray-100 hover:text-emerald-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500 lg:hidden">
                 <i class="fas fa-search text-lg"></i>
             </button>
 
-            <!-- Wishlist -->
+            <!-- Wishlist (hidden on phones, it's inside the drawer) -->
             <a routerLink="/wishlist" aria-label="Wishlist"
-                class="group relative flex h-10 w-10 items-center justify-center rounded-full text-gray-600 transition-colors hover:bg-rose-50 hover:text-rose-600 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500">
-                <i class="far fa-heart text-xl transition-transform group-hover:scale-110"></i> <span
-                    class="absolute -right-0.5 -top-0.5 flex h-5 min-w-5 items-center justify-center rounded-full border-2 border-white bg-emerald-600 px-1 text-[10px] font-bold leading-none text-white">{{whishlist_count()}}</span>
+                class="group relative hidden h-10 w-10 items-center justify-center rounded-full text-gray-600 transition-colors hover:bg-rose-50 hover:text-rose-600 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500 sm:flex">
+                <i class="far fa-heart text-xl transition-transform group-hover:scale-110"></i>
+                <span
+                    class="absolute -right-0.5 -top-0.5 flex h-5 min-w-5 items-center justify-center rounded-full border-2 border-white bg-emerald-600 px-1 text-[10px] font-bold leading-none text-white">{{
+                    whishlist_count() }}</span>
             </a>
 
             <!-- Cart -->
-            <a routerLink="/cart" aria-label="Cart, 3 items"
+            <a routerLink="/cart" [attr.aria-label]="'Cart, ' + cart_count() + ' items'"
                 class="group relative flex h-10 w-10 items-center justify-center rounded-full text-gray-600 transition-colors hover:bg-emerald-50 hover:text-emerald-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500">
                 <i class="fas fa-shopping-cart text-xl transition-transform group-hover:scale-110"></i>
-                <!-- TODO: bind to your cart count, e.g. {{ cartCount() }} -->
                 <span
-                    class="absolute -right-0.5 -top-0.5 flex h-5 min-w-5 items-center justify-center rounded-full border-2 border-white bg-emerald-600 px-1 text-[10px] font-bold leading-none text-white">{{cart_count()}}</span>
+                    class="absolute -right-0.5 -top-0.5 flex h-5 min-w-5 items-center justify-center rounded-full border-2 border-white bg-emerald-600 px-1 text-[10px] font-bold leading-none text-white">{{
+                    cart_count() }}</span>
             </a>
+
+            <!-- Auth (desktop only; phones use the drawer) -->
             @if (isLogged()) {
-            <!-----Signout-->
-            <div class="group relative ml-1 border-l border-gray-200 pl-3">
-                <a (click)="logOut()"
+            <div class="ml-1 hidden border-l border-gray-200 pl-3 md:block">
+                <button type="button" (click)="logOut()"
                     class="rounded-full px-4 py-2 text-sm font-semibold text-gray-700 transition-colors hover:bg-gray-100 hover:text-emerald-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500">Sign
-                    out</a>
+                    out</button>
             </div>
-            }
-            @else {
-            <!-----Signup /sigin-->
-            <div class="ml-1 hidden items-center gap-2 border-l border-gray-200 pl-3 sm:flex">
+            } @else {
+            <div class="ml-1 hidden items-center gap-2 border-l border-gray-200 pl-3 md:flex">
                 <a routerLink="/login"
                     class="rounded-full px-4 py-2 text-sm font-semibold text-gray-700 transition-colors hover:bg-gray-100 hover:text-emerald-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500">Sign
                     in</a>
@@ -137,14 +138,6 @@
                     up</a>
             </div>
             }
-            <!-- Auth (desktop) -->
-
-
-            <!--
-        Logged-in state (replace the auth block above with this using @if):
-
-       
-      -->
 
             <!-- Menu button (mobile) -->
             <button type="button" data-drawer-target="drawer-right" data-drawer-show="drawer-right"
@@ -158,8 +151,9 @@
 
 <!-- ============ Mobile drawer ============ -->
 <div id="drawer-right"
-    class="fixed right-0 top-0 z-50 flex h-screen w-80 max-w-[85vw] translate-x-full flex-col bg-white shadow-2xl transition-transform"
+    class="fixed right-0 top-0 z-50 flex h-dvh w-80 max-w-[85vw] translate-x-full flex-col bg-white shadow-2xl transition-transform"
     tabindex="-1" aria-labelledby="drawer-title">
+
     <!-- Header -->
     <div class="flex items-center justify-between border-b border-gray-100 px-5 py-4">
         <a routerLink="/" data-drawer-hide="drawer-right" class="flex items-center gap-2" id="drawer-title">
@@ -167,9 +161,8 @@
                 class="flex h-8 w-8 items-center justify-center rounded-lg bg-gradient-to-br from-emerald-500 to-emerald-700 text-sm text-white">
                 <i class="fas fa-bag-shopping"></i>
             </span>
-            <span class="text-lg font-extrabold tracking-tight text-gray-900">
-                Aldora<span class="text-emerald-600">Cart</span>
-            </span>
+            <span class="text-lg font-extrabold tracking-tight text-gray-900">Aldora<span
+                    class="text-emerald-600">Cart</span></span>
         </a>
         <button type="button" data-drawer-hide="drawer-right" aria-label="Close menu"
             class="flex h-9 w-9 items-center justify-center rounded-full bg-gray-100 text-gray-500 transition-colors hover:bg-gray-200 hover:text-gray-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500">
@@ -185,7 +178,7 @@
             <i
                 class="fas fa-search pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-sm text-gray-400"></i>
             <input id="mobile-search" type="search" placeholder="Search for products"
-                class="w-full rounded-xl border border-gray-200 bg-gray-100/70 py-3 pl-11 pr-4 text-sm outline-none transition-all focus:border-emerald-500 focus:bg-white focus:ring-4 focus:ring-emerald-500/15" />
+                class="w-full rounded-xl border border-gray-200 bg-gray-100/70 py-3 pl-11 pr-4 text-base outline-none transition-all focus:border-emerald-500 focus:bg-white focus:ring-4 focus:ring-emerald-500/15" />
         </form>
 
         <!-- Main links -->
@@ -199,10 +192,10 @@
                     </a>
                 </li>
                 <li>
-                    <a routerLink="/categories" data-drawer-hide="drawer-right"
+                    <a routerLink="/shop" data-drawer-hide="drawer-right"
                         routerLinkActive="bg-emerald-50 text-emerald-700"
                         class="flex items-center gap-3 rounded-xl px-3 py-3 font-semibold text-gray-700 transition-colors hover:bg-gray-50">
-                        <i class="fas fa-table-cells-large w-5 text-center"></i> Categories
+                        <i class="fas fa-store w-5 text-center"></i> Shop
                     </a>
                 </li>
                 <li>
@@ -213,24 +206,39 @@
                     </a>
                 </li>
                 <li>
-                    <a routerLink="/shop" data-drawer-hide="drawer-right"
+                    <a routerLink="/categories" data-drawer-hide="drawer-right"
                         routerLinkActive="bg-emerald-50 text-emerald-700"
                         class="flex items-center gap-3 rounded-xl px-3 py-3 font-semibold text-gray-700 transition-colors hover:bg-gray-50">
-                        <i class="fas fa-tags w-5 text-center"></i> Shop
+                        <i class="fas fa-table-cells-large w-5 text-center"></i> All categories
                     </a>
                 </li>
-
             </ul>
         </nav>
+
+        <!-- Categories chips -->
+        <div class="mt-5 border-t border-gray-100 pt-5">
+            <p class="mb-3 px-1 text-xs font-bold uppercase tracking-wider text-gray-400">Categories</p>
+            <div class="flex flex-wrap gap-2">
+                @for (category of categories(); track category._id) {
+                <a [routerLink]="['/shop', category._id]" data-drawer-hide="drawer-right"
+                    class="rounded-full border border-gray-200 bg-white px-3.5 py-1.5 text-sm font-medium text-gray-700 transition-colors hover:border-emerald-500 hover:bg-emerald-50 hover:text-emerald-700">
+                    {{ category.name }}
+                </a>
+                }
+            </div>
+        </div>
 
         <!-- Shortcuts -->
         <div class="mt-5 grid grid-cols-2 gap-3 border-t border-gray-100 pt-5">
             <a routerLink="/wishlist" data-drawer-hide="drawer-right"
-                class="flex flex-col items-center gap-2 rounded-2xl border border-gray-100 bg-rose-50/60 p-4 text-sm font-semibold text-gray-700 transition-colors hover:bg-rose-50">
+                class="relative flex flex-col items-center gap-2 rounded-2xl border border-gray-100 bg-rose-50/60 p-4 text-sm font-semibold text-gray-700 transition-colors hover:bg-rose-50">
                 <span class="flex h-11 w-11 items-center justify-center rounded-full bg-white text-rose-500 shadow-sm">
                     <i class="far fa-heart text-lg"></i>
                 </span>
                 Wishlist
+                <span
+                    class="absolute right-3 top-3 flex h-5 min-w-5 items-center justify-center rounded-full bg-rose-500 px-1 text-[10px] font-bold text-white">{{
+                    whishlist_count() }}</span>
             </a>
             <a routerLink="/cart" data-drawer-hide="drawer-right"
                 class="relative flex flex-col items-center gap-2 rounded-2xl border border-gray-100 bg-emerald-50/60 p-4 text-sm font-semibold text-gray-700 transition-colors hover:bg-emerald-50">
@@ -240,18 +248,28 @@
                 </span>
                 My cart
                 <span
-                    class="absolute right-3 top-3 flex h-5 min-w-5 items-center justify-center rounded-full bg-emerald-600 px-1 text-[10px] font-bold text-white">5</span>
+                    class="absolute right-3 top-3 flex h-5 min-w-5 items-center justify-center rounded-full bg-emerald-600 px-1 text-[10px] font-bold text-white">{{
+                    cart_count() }}</span>
             </a>
         </div>
     </div>
 
-    <!-- Pinned auth actions -->
-    <div class="grid grid-cols-2 gap-3 border-t border-gray-100 bg-white px-5 py-4">
-        <a routerLink="/login" data-drawer-hide="drawer-right"
-            class="rounded-xl border border-gray-200 py-3 text-center text-sm font-semibold text-gray-700 transition-colors hover:border-emerald-500 hover:text-emerald-700">Sign
-            in</a>
-        <a routerLink="/register" data-drawer-hide="drawer-right"
-            class="rounded-xl bg-emerald-600 py-3 text-center text-sm font-semibold text-white shadow-sm shadow-emerald-600/30 transition-colors hover:bg-emerald-700">Sign
-            up</a>
+    <!-- Auth footer (always visible, also on phones) -->
+    <div class="border-t border-gray-100 p-5 pb-[max(1.25rem,env(safe-area-inset-bottom))]">
+        @if (isLogged()) {
+        <button type="button" (click)="logOut()" data-drawer-hide="drawer-right"
+            class="flex w-full items-center justify-center gap-2 rounded-xl border border-gray-200 px-4 py-3 text-sm font-semibold text-gray-700 transition-colors hover:bg-gray-50 hover:text-emerald-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500">
+            <i class="fas fa-right-from-bracket"></i> Sign out
+        </button>
+        } @else {
+        <div class="grid grid-cols-2 gap-3">
+            <a routerLink="/login" data-drawer-hide="drawer-right"
+                class="rounded-xl border border-gray-200 px-4 py-3 text-center text-sm font-semibold text-gray-700 transition-colors hover:bg-gray-50 hover:text-emerald-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500">Sign
+                in</a>
+            <a routerLink="/register" data-drawer-hide="drawer-right"
+                class="rounded-xl bg-emerald-600 px-4 py-3 text-center text-sm font-semibold text-white shadow-sm shadow-emerald-600/30 transition-colors hover:bg-emerald-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500 focus-visible:ring-offset-2">Sign
+                up</a>
+        </div>
+        }
     </div>
 </div>

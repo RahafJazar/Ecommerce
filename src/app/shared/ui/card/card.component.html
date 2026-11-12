@@ -19,7 +19,8 @@
                     (click)="addProductToWishList(product()?._id)"
                     class="flex size-10 cursor-pointer items-center justify-center rounded-full border border-slate-200 bg-white text-slate-600 shadow-sm transition hover:border-rose-200 hover:bg-rose-50 hover:text-rose-600 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-rose-500 focus-visible:ring-offset-2"
                     [routerLink]="['details',product().slug,product()._id]">
-                    <i class="far fa-heart" aria-hidden="true"></i>
+                    <i class="fa-heart" [class.fas]="product().isWish" [class.far]="!product().isWish"
+                        [style.color]="product().isWish? 'rgb(232, 23, 23)':''" aria-hidden="true"></i>
                 </button>
 
                 <button type="button" [attr.aria-label]="'Quick view of ' + product().title"

@@ -1,4 +1,4 @@
-import { Component, effect, inject, signal, ViewEncapsulation, WritableSignal } from '@angular/core';
+import { Component, computed, effect, inject, signal, ViewEncapsulation, WritableSignal } from '@angular/core';
 import { CardComponent } from '../../shared/ui/card/card.component';
 
 import { ProductsService } from '../../core/services/products/products.service';
@@ -6,6 +6,7 @@ import { Product } from '../../core/models/product.interface';
 import { NgxPaginationModule, PaginationInstance } from 'ngx-pagination'; // <-- import the module
 import { ActivatedRoute, Router } from '@angular/router';
 import { Location } from '@angular/common';
+import { WishlistService } from '../../core/services/whishlist/wishlist.service';
 
 @Component({
   imports: [CardComponent, NgxPaginationModule],
@@ -20,10 +21,12 @@ export class ShopComponent {
   private readonly activatedRoute = inject(ActivatedRoute);
   private readonly router = inject(Router);
   private readonly location = inject(Location);
+  private readonly wishlistService = inject(WishlistService);
   pageSize: WritableSignal<number> = signal<number>(0)
   page: WritableSignal<number> = signal<number>(0)
   total: WritableSignal<number> = signal<number>(0)
   categoryId: WritableSignal<string | null> = signal<string>('');
+
   pagination: WritableSignal<PaginationInstance> = signal<PaginationInstance>({
     id: 'foo',
     itemsPerPage: this.pageSize(),
@@ -56,7 +59,11 @@ export class ShopComponent {
     this.productsService.getAllProducts(this.pagination().currentPage, this.pagination().itemsPerPage).subscribe({
       next: (resp) => {
         this.productsList.set(resp.data);
-
+        this.productsList().map(prod => {
+          if (this.wishlistService.wishlistProductIds().includes(prod._id)) {
+            prod.isWish = true;
+          }
+        })
         this.pagination().totalItems = resp.results;
         this.pagination().itemsPerPage = resp.metadata.limit;
         this.pagination().currentPage = resp.metadata.currentPage;
@@ -68,7 +75,11 @@ export class ShopComponent {
     this.productsService.getProductsDependOnCategory(this.categoryId(), this.pagination().currentPage, this.pagination().itemsPerPage).subscribe({
       next: (resp) => {
         this.productsList.set(resp.data);
-
+        this.productsList().map(prod => {
+          if (this.wishlistService.wishlistProductIds().includes(prod._id)) {
+            prod.isWish = true;
+          }
+        })
         this.pagination().totalItems = resp.results;
         this.pagination().itemsPerPage = resp.metadata.limit;
         this.pagination().currentPage = resp.metadata.currentPage;
@@ -89,4 +100,6 @@ export class ShopComponent {
       this.router.navigate(['/categories']);
     }
   }
+
+
 }

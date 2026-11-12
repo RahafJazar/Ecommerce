@@ -1,10 +1,11 @@
-import { Component, inject, signal, WritableSignal } from '@angular/core';
+import { Component, inject, PLATFORM_ID, signal, WritableSignal } from '@angular/core';
 import { FormControl, ReactiveFormsModule, Validators, ɵInternalFormsSharedModule } from '@angular/forms';
 import { passwordRules } from '../../shared/validators/password.validator';
 import { PaswordChecklistComponent } from '../../shared/components/pasword-checklist/pasword-checklist.component';
 import { AuthService } from '../../core/auth/services/auth.service';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+import { isPlatformBrowser } from '@angular/common';
 
 @Component({
   imports: [PaswordChecklistComponent, ReactiveFormsModule],
@@ -16,6 +17,7 @@ export class ForgtPasswordComponent {
   private readonly authService = inject(AuthService);
   private readonly router = inject(Router);
   private readonly toastrService = inject(ToastrService)
+  private readonly platform = inject(PLATFORM_ID)
   step: WritableSignal<number> = signal<number>(1);
 
   emailControl: WritableSignal<FormControl> = signal<FormControl>(new FormControl('', [Validators.required, Validators.email]));
@@ -38,12 +40,15 @@ export class ForgtPasswordComponent {
         next: (resp) => {
           console.log(resp);
           if (resp.statusMsg === 'Success') {
-            this.toastrService.success(resp.message, '', {
-              closeButton: true,
-              timeOut: 1000,
-              progressBar: true,
-              progressAnimation: 'decreasing'
-            })
+            if (isPlatformBrowser(this.platform)) {
+              this.toastrService.success(resp.message, '', {
+                closeButton: true,
+                timeOut: 1000,
+                progressBar: true,
+                progressAnimation: 'decreasing'
+              })
+            }
+
             setTimeout(() => {
               this.step.set(2);
             }, 1000);
@@ -67,7 +72,7 @@ export class ForgtPasswordComponent {
       this.authService.verifyResetCode(data).subscribe({
         next: (resp) => {
           console.log(resp);
-          if (resp.statusMsg === 'Success') {
+          if (resp.statusMsg === 'Success' && isPlatformBrowser(this.platform)) {
             this.toastrService.success('Code Verified Successfully', '', {
               closeButton: true,
               timeOut: 1000,
@@ -97,7 +102,7 @@ export class ForgtPasswordComponent {
       //call API
       this.authService.resetPassword(data).subscribe({
         next: (resp) => {
-          if (resp.statusMsg === 'Success') {
+          if (resp.statusMsg === 'Success' && isPlatformBrowser(this.platform)) {
             //toastr message
             this.toastrService.success('Password Reset Successfully', '', {
               closeButton: true,

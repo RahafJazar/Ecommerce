@@ -8,7 +8,7 @@
             </div>
             <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 mt-4 gap-4">
                 @for (category of categoriesList(); track category._id) {
-                <a [routerLink]="['/products']" [queryParams]="{ category: category._id }"
+                <a [routerLink]="['/shop', category._id]" [queryParams]="{ category: category._id }"
                     class="group block overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm transition duration-300 hover:-translate-y-1 hover:border-emerald-200 hover:shadow-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500 focus-visible:ring-offset-4 motion-reduce:transform-none motion-reduce:transition-none">
                     <!-- Image -->
                     <div class="relative aspect-[4/3] overflow-hidden bg-slate-100">
